@@ -1,6 +1,18 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import {
   FaHome,
@@ -8,12 +20,15 @@ import {
   FaInfoCircle,
   FaPhone,
   FaQuestionCircle,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import { FixedPanel } from "../styles/style";
 
 export default function HeaderApp() {
   const [display, setDisplay] = useState(0);
   const [position, setPosition] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (position < 132) {
@@ -54,7 +69,27 @@ export default function HeaderApp() {
             <Image src="/img/logo.png" width={95} height={35} quality={100} />
           </Box>
         </Flex>
-        <Flex w={"70%"} h="50px" justify="flex-end" align="center">
+        <Flex
+          w={"70%"}
+          h="50px"
+          justify="flex-end"
+          align="center"
+          display={["flex", "flex", "flex", "none", "none"]}
+        >
+          <IconButton
+            aria-label="Search database"
+            icon={menuOpen === false ? <FaBars /> : <FaTimes />}
+            fontSize="28px"
+            onClick={() => setMenuOpen(!menuOpen)}
+          />
+        </Flex>
+        <Flex
+          w={"70%"}
+          h="50px"
+          justify="flex-end"
+          align="center"
+          display={["none", "none", "none", "flex", "flex"]}
+        >
           <Button
             size="lg"
             borderRadius="sm"
@@ -246,6 +281,21 @@ export default function HeaderApp() {
           </Flex>
         </Flex>
       </FixedPanel>
+
+      <Drawer
+        isOpen={menuOpen}
+        placement="left"
+        onClose={() => setMenuOpen(false)}
+      >
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton fontSize={"15px"} mt={"7px"} />
+            <DrawerHeader bg="yellow.300">MENU</DrawerHeader>
+
+            <DrawerBody></DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
     </>
   );
 }

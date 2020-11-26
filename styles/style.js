@@ -27,6 +27,6 @@ export const FixedPanel = styled.div`
   z-index: 1000;
   height: 50px;
   top: 0;
-  background-color: rgba(222, 222, 222, 0.9);
+  background-color: rgba(240, 240, 240, 0.9);
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
 `;

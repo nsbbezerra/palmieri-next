@@ -5,11 +5,13 @@ import {
   Text,
   Flex,
   IconButton,
+  Icon,
   Divider,
   Center,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { TiArrowRightOutline } from "react-icons/ti";
+import { FaWhatsapp } from "react-icons/fa";
 import {
   AiOutlineInstagram,
   AiOutlineFacebook,
@@ -38,7 +40,8 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
+
               <Text ml={2} fontSize="sm">
                 Onde Estamos
               </Text>
@@ -52,7 +55,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
               <Text ml={2} fontSize="sm">
                 Fretes e Entrega
               </Text>
@@ -95,7 +98,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
               <Text ml={2} fontSize="sm">
                 Onde Estamos
               </Text>
@@ -115,7 +118,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
               <Text ml={2} fontSize="sm">
                 Fale Conosco
               </Text>
@@ -129,7 +132,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
               <Text ml={2} fontSize="sm">
                 Quem Somos
               </Text>
@@ -143,7 +146,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
               <Text ml={2} fontSize="sm">
                 Tabela de Tamanhos
               </Text>
@@ -157,7 +160,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <TiArrowRightOutline />
+              <Icon as={TiArrowRightOutline} />
               <Text ml={2} fontSize="sm">
                 Como Comprar
               </Text>
@@ -177,7 +180,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <AiOutlineWhatsApp />
+              <Icon as={FaWhatsapp} />
               <Text ml={2} fontSize="sm">
                 (63) 98501-4015
               </Text>
@@ -191,7 +194,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <AiOutlineWhatsApp />
+              <Icon as={FaWhatsapp} />
               <Text ml={2} fontSize="sm">
                 (63) 98485-2266
               </Text>
@@ -205,7 +208,7 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <AiOutlineWhatsApp />
+              <Icon as={FaWhatsapp} />
               <Text ml={2} fontSize="sm">
                 (63) 98489-2058
               </Text>
@@ -219,14 +222,16 @@ export default function FooterApp() {
               _hover={{ textDecoration: "underline" }}
               mb={2}
             >
-              <AiOutlineMail />
+              <Icon as={AiOutlineMail} />
+
               <Text ml={2} fontSize="sm">
                 Palmieriuniformes@gmail.com
               </Text>
             </Flex>
           </Link>
           <Flex align="center" color="gray.200" mt={5}>
-            <AiOutlineClockCircle />
+            <Icon as={AiOutlineClockCircle} />
+
             <Text ml={2} fontSize="sm">
               9:00 - 18:00hrs de Seg a Sex
             </Text>
