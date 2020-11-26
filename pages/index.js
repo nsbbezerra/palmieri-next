@@ -1,4 +1,5 @@
 import HeaderApp from "../components/Header";
+import FooterApp from "../components/Footer";
 import Head from "next/head";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../styles/style";
 import Banner from "../components/Banner";
@@ -12,10 +13,17 @@ import {
   Button,
   Container,
   Center,
+  Image as ChakraImage,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { FaPaintBrush, FaCreditCard, FaTruck, FaCheck } from "react-icons/fa";
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import {
+  RiMoneyDollarCircleFill,
+  RiSendPlaneFill,
+  RiWhatsappLine,
+} from "react-icons/ri";
 import { useRouter } from "next/router";
 import config from "../configs/index";
 import Carousel from "react-multi-carousel";
@@ -237,7 +245,7 @@ export default function Home() {
       </ContainerNonFixed>
 
       <Fixed>
-        <Box mt={10} textAlign="center">
+        <Box mt={20} textAlign="center">
           <Heading>PORTIFÓLIO DE ARTES</Heading>
           <Text>Nosso Portifólio de Artes</Text>
         </Box>
@@ -462,6 +470,335 @@ export default function Home() {
           </Carousel>
         </Container>
       </Fixed>
+
+      <ContainerNonFixed>
+        <Box mt={20} bg="gray.900" pt={10} pb={10}>
+          <Container maxW="xl">
+            <Box textAlign="center" mb={10}>
+              <Heading color="yellow.400">DEPOIMENTOS</Heading>
+            </Box>
+            <Carousel
+              additionalTransfrom={0}
+              arrows
+              autoPlaySpeed={3000}
+              centerMode={true}
+              focusOnSelect={false}
+              infinite
+              itemClass=""
+              keyBoardControl
+              minimumTouchDrag={80}
+              renderButtonGroupOutside={true}
+              renderDotsOutside={true}
+              responsive={config.depoiments}
+            >
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                w="255px"
+              >
+                <Flex
+                  bg="gray.200"
+                  borderRadius="lg"
+                  w={"250px"}
+                  h={"150px"}
+                  direction="column"
+                  align="center"
+                  p={2}
+                >
+                  <Text fontSize="xs" textAlign="center">
+                    Meu depoimento é meu depoimento Meu depoimento é meu
+                    depoimento Meu depoimento é meu depoimento Meu depoimento é
+                    meu depoimento Meu depoimento é meu depoimento
+                  </Text>
+                </Flex>
+                <ChakraImage
+                  borderRadius="full"
+                  boxSize="80px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  mt={-10}
+                  borderWidth="2px"
+                  borderColor="yellow.400"
+                  borderStyle="solid"
+                />
+                <Text color="gray.200" fontSize="sm">
+                  Segun Adebayo
+                </Text>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                w="255px"
+              >
+                <Flex
+                  bg="gray.200"
+                  borderRadius="lg"
+                  w={"250px"}
+                  h={"150px"}
+                  direction="column"
+                  align="center"
+                  p={2}
+                >
+                  <Text fontSize="xs" textAlign="center">
+                    Meu depoimento é meu depoimento Meu depoimento é meu
+                    depoimento Meu depoimento é meu depoimento Meu depoimento é
+                    meu depoimento Meu depoimento é meu depoimento
+                  </Text>
+                </Flex>
+                <ChakraImage
+                  borderRadius="full"
+                  boxSize="80px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  mt={-10}
+                  borderWidth="2px"
+                  borderColor="yellow.400"
+                  borderStyle="solid"
+                />
+                <Text color="gray.200" fontSize="sm">
+                  Segun Adebayo
+                </Text>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                w="255px"
+              >
+                <Flex
+                  bg="gray.200"
+                  borderRadius="lg"
+                  w={"250px"}
+                  h={"150px"}
+                  direction="column"
+                  align="center"
+                  p={2}
+                >
+                  <Text fontSize="xs" textAlign="center">
+                    Meu depoimento é meu depoimento Meu depoimento é meu
+                    depoimento Meu depoimento é meu depoimento Meu depoimento é
+                    meu depoimento Meu depoimento é meu depoimento
+                  </Text>
+                </Flex>
+                <ChakraImage
+                  borderRadius="full"
+                  boxSize="80px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  mt={-10}
+                  borderWidth="2px"
+                  borderColor="yellow.400"
+                  borderStyle="solid"
+                />
+                <Text color="gray.200" fontSize="sm">
+                  Segun Adebayo
+                </Text>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                w="255px"
+              >
+                <Flex
+                  bg="gray.200"
+                  borderRadius="lg"
+                  w={"250px"}
+                  h={"150px"}
+                  direction="column"
+                  align="center"
+                  p={2}
+                >
+                  <Text fontSize="xs" textAlign="center">
+                    Meu depoimento é meu depoimento Meu depoimento é meu
+                    depoimento Meu depoimento é meu depoimento Meu depoimento é
+                    meu depoimento Meu depoimento é meu depoimento
+                  </Text>
+                </Flex>
+                <ChakraImage
+                  borderRadius="full"
+                  boxSize="80px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  mt={-10}
+                  borderWidth="2px"
+                  borderColor="yellow.400"
+                  borderStyle="solid"
+                />
+                <Text color="gray.200" fontSize="sm">
+                  Segun Adebayo
+                </Text>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                w="255px"
+              >
+                <Flex
+                  bg="gray.200"
+                  borderRadius="lg"
+                  w={"250px"}
+                  h={"150px"}
+                  direction="column"
+                  align="center"
+                  p={2}
+                >
+                  <Text fontSize="xs" textAlign="center">
+                    Meu depoimento é meu depoimento Meu depoimento é meu
+                    depoimento Meu depoimento é meu depoimento Meu depoimento é
+                    meu depoimento Meu depoimento é meu depoimento
+                  </Text>
+                </Flex>
+                <ChakraImage
+                  borderRadius="full"
+                  boxSize="80px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  mt={-10}
+                  borderWidth="2px"
+                  borderColor="yellow.400"
+                  borderStyle="solid"
+                />
+                <Text color="gray.200" fontSize="sm">
+                  Segun Adebayo
+                </Text>
+              </Box>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+                w="255px"
+              >
+                <Flex
+                  bg="gray.200"
+                  borderRadius="lg"
+                  w={"250px"}
+                  h={"150px"}
+                  direction="column"
+                  align="center"
+                  p={2}
+                >
+                  <Text fontSize="xs" textAlign="center">
+                    Meu depoimento é meu depoimento Meu depoimento é meu
+                    depoimento Meu depoimento é meu depoimento Meu depoimento é
+                    meu depoimento Meu depoimento é meu depoimento
+                  </Text>
+                </Flex>
+                <ChakraImage
+                  borderRadius="full"
+                  boxSize="80px"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  mt={-10}
+                  borderWidth="2px"
+                  borderColor="yellow.400"
+                  borderStyle="solid"
+                />
+                <Text color="gray.200" fontSize="sm">
+                  Segun Adebayo
+                </Text>
+              </Box>
+            </Carousel>
+          </Container>
+        </Box>
+      </ContainerNonFixed>
+
+      <ContainerNonFixed>
+        <Box bg={"gray.100"} pt={10} pb={10}>
+          <Container maxW="lg">
+            <Box textAlign="center">
+              <Heading>ENTRE EM CONTATO</Heading>
+            </Box>
+            <Grid templateColumns={"1fr 1fr"} gap={"30px"} mt={10}>
+              <Box>
+                <Text fontSize="sm" fontWeight="700" mb={2}>
+                  Envie sua Mensagem
+                </Text>
+                <Input
+                  placeholder="Nome"
+                  focusBorderColor="yellow.400"
+                  bg={"white"}
+                  borderColor="gray.400"
+                  mb={2}
+                  size="sm"
+                />
+                <Input
+                  placeholder="Telefone"
+                  type="number"
+                  focusBorderColor="yellow.400"
+                  bg={"white"}
+                  borderColor="gray.400"
+                  mb={2}
+                  size="sm"
+                />
+                <Input
+                  placeholder="Email"
+                  type="email"
+                  focusBorderColor="yellow.400"
+                  bg={"white"}
+                  borderColor="gray.400"
+                  mb={2}
+                  size="sm"
+                />
+                <Input
+                  placeholder="Quantidade de Camisetas"
+                  type="number"
+                  focusBorderColor="yellow.400"
+                  bg={"white"}
+                  borderColor="gray.400"
+                  mb={2}
+                  size="sm"
+                />
+                <Textarea
+                  placeholder="Sua mensagem aqui"
+                  focusBorderColor="yellow.400"
+                  bg={"white"}
+                  borderColor="gray.400"
+                  rows={4}
+                  mb={2}
+                  size="sm"
+                />
+                <Button
+                  isFullWidth
+                  colorScheme="yellow"
+                  leftIcon={<RiSendPlaneFill />}
+                >
+                  ENVIAR MENSAGEM
+                </Button>
+              </Box>
+              <Box>
+                <Center>
+                  <Text fontSize="sm" fontWeight="700" mb={2}>
+                    Solicite um orçamento via Whatsapp
+                  </Text>
+                </Center>
+                <Center>
+                  <Button
+                    leftIcon={<RiWhatsappLine />}
+                    colorScheme="green"
+                    size="lg"
+                    fontSize="4xl"
+                    h={20}
+                    w={`300px`}
+                  >
+                    Clique Aqui
+                  </Button>
+                </Center>
+              </Box>
+            </Grid>
+          </Container>
+        </Box>
+      </ContainerNonFixed>
+      <FooterApp />
     </ContainerApp>
   );
 }
