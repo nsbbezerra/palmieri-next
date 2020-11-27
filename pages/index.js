@@ -30,6 +30,7 @@ import {
 import { useRouter } from "next/router";
 import config from "../configs/index";
 import Carousel from "react-multi-carousel";
+import Link from "next/link";
 
 const isBrowser = typeof window !== "undefined";
 
@@ -164,17 +165,18 @@ export default function Home() {
                 <Text fontSize="md" fontWeight="700" textAlign="center">
                   Uniformes de Academia
                 </Text>
-                <Button
-                  size="sm"
-                  variant="link"
-                  colorScheme="yellow"
-                  mt={2}
-                  _focus={{ boxShadow: "none", outline: "none" }}
-                  p={1}
-                  onClick={(e) => goTo(e, "/")}
-                >
-                  Veja Mais
-                </Button>
+                <Link href="/produtos/1">
+                  <Button
+                    size="sm"
+                    variant="link"
+                    colorScheme="yellow"
+                    mt={2}
+                    _focus={{ boxShadow: "none", outline: "none" }}
+                    p={1}
+                  >
+                    Veja Mais
+                  </Button>
+                </Link>
               </Flex>
             </Box>
           </Grid>

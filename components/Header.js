@@ -25,6 +25,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { FixedPanel } from "../styles/style";
+import Link from "next/link";
 
 export default function HeaderApp() {
   const [display, setDisplay] = useState(0);
@@ -91,91 +92,97 @@ export default function HeaderApp() {
           align="center"
           display={["none", "none", "none", "flex", "flex"]}
         >
-          <Button
-            size="lg"
-            borderRadius="sm"
-            variant="ghost"
-            colorScheme="yellow"
-            leftIcon={<FaHome />}
-            _focus={{
-              boxShadow: "none",
-              outline: "none",
-            }}
-            color="gray.900"
-            _hover={{ bg: "yellow.400" }}
-            fontSize="sm"
-            onClick={(e) => goTo(e, "/")}
-          >
-            Início
-          </Button>
-          <Button
-            size="lg"
-            borderRadius="sm"
-            variant="ghost"
-            colorScheme="yellow"
-            leftIcon={<FaTags />}
-            _focus={{
-              boxShadow: "none",
-              outline: "none",
-            }}
-            color="gray.900"
-            _hover={{ bg: "yellow.400" }}
-            fontSize="sm"
-            onClick={(e) => goTo(e, "/")}
-          >
-            Produtos
-          </Button>
-          <Button
-            size="lg"
-            borderRadius="sm"
-            variant="ghost"
-            colorScheme="yellow"
-            leftIcon={<FaInfoCircle />}
-            _focus={{
-              boxShadow: "none",
-              outline: "none",
-            }}
-            color="gray.900"
-            _hover={{ bg: "yellow.400" }}
-            fontSize="sm"
-            onClick={(e) => goTo(e, "/")}
-          >
-            Sobre Nós
-          </Button>
-          <Button
-            size="lg"
-            borderRadius="sm"
-            variant="ghost"
-            colorScheme="yellow"
-            leftIcon={<FaPhone />}
-            _focus={{
-              boxShadow: "none",
-              outline: "none",
-            }}
-            color="gray.900"
-            _hover={{ bg: "yellow.400" }}
-            fontSize="sm"
-            onClick={(e) => goTo(e, "/")}
-          >
-            Fale Conosco
-          </Button>
-          <Button
-            size="lg"
-            borderRadius="sm"
-            variant="ghost"
-            colorScheme="yellow"
-            leftIcon={<FaQuestionCircle />}
-            _focus={{
-              boxShadow: "none",
-              outline: "none",
-            }}
-            color="gray.900"
-            _hover={{ bg: "yellow.400" }}
-            fontSize="sm"
-            onClick={(e) => goTo(e, "/")}
-          >
-            Como Funciona
-          </Button>
+          <Link href="/">
+            <Button
+              size="lg"
+              borderRadius="sm"
+              variant="ghost"
+              colorScheme="yellow"
+              leftIcon={<FaHome />}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+              }}
+              color="gray.900"
+              _hover={{ bg: "yellow.400" }}
+              fontSize="sm"
+              onClick={() => {}}
+            >
+              Início
+            </Button>
+          </Link>
+          <Link href={"/produtos/todos"}>
+            <Button
+              size="lg"
+              borderRadius="sm"
+              variant="ghost"
+              colorScheme="yellow"
+              leftIcon={<FaTags />}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+              }}
+              color="gray.900"
+              _hover={{ bg: "yellow.400" }}
+              fontSize="sm"
+            >
+              Produtos
+            </Button>
+          </Link>
+          <Link href="/">
+            <Button
+              size="lg"
+              borderRadius="sm"
+              variant="ghost"
+              colorScheme="yellow"
+              leftIcon={<FaInfoCircle />}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+              }}
+              color="gray.900"
+              _hover={{ bg: "yellow.400" }}
+              fontSize="sm"
+            >
+              Sobre Nós
+            </Button>
+          </Link>
+          <Link href={"/"}>
+            <Button
+              size="lg"
+              borderRadius="sm"
+              variant="ghost"
+              colorScheme="yellow"
+              leftIcon={<FaPhone />}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+              }}
+              color="gray.900"
+              _hover={{ bg: "yellow.400" }}
+              fontSize="sm"
+            >
+              Fale Conosco
+            </Button>
+          </Link>
+          <Link href="/">
+            <Button
+              size="lg"
+              borderRadius="sm"
+              variant="ghost"
+              colorScheme="yellow"
+              leftIcon={<FaQuestionCircle />}
+              _focus={{
+                boxShadow: "none",
+                outline: "none",
+              }}
+              color="gray.900"
+              _hover={{ bg: "yellow.400" }}
+              fontSize="sm"
+            >
+              Como Funciona
+            </Button>
+          </Link>
         </Flex>
       </Flex>
       <FixedPanel display={display}>
@@ -214,91 +221,97 @@ export default function HeaderApp() {
             align="center"
             display={["none", "none", "none", "flex", "flex"]}
           >
-            <Button
-              size="lg"
-              borderRadius="sm"
-              variant="ghost"
-              colorScheme="yellow"
-              leftIcon={<FaHome />}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-              }}
-              color="gray.900"
-              _hover={{ bg: "yellow.400" }}
-              fontSize="sm"
-              onClick={(e) => goTo(e, "/")}
-            >
-              Início
-            </Button>
-            <Button
-              size="lg"
-              borderRadius="sm"
-              variant="ghost"
-              colorScheme="yellow"
-              leftIcon={<FaTags />}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-              }}
-              color="gray.900"
-              _hover={{ bg: "yellow.400" }}
-              fontSize="sm"
-              onClick={(e) => goTo(e, "/")}
-            >
-              Produtos
-            </Button>
-            <Button
-              size="lg"
-              borderRadius="sm"
-              variant="ghost"
-              colorScheme="yellow"
-              leftIcon={<FaInfoCircle />}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-              }}
-              color="gray.900"
-              _hover={{ bg: "yellow.400" }}
-              fontSize="sm"
-              onClick={(e) => goTo(e, "/")}
-            >
-              Sobre Nós
-            </Button>
-            <Button
-              size="lg"
-              borderRadius="sm"
-              variant="ghost"
-              colorScheme="yellow"
-              leftIcon={<FaPhone />}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-              }}
-              color="gray.900"
-              _hover={{ bg: "yellow.400" }}
-              fontSize="sm"
-              onClick={(e) => goTo(e, "/")}
-            >
-              Fale Conosco
-            </Button>
-            <Button
-              size="lg"
-              borderRadius="sm"
-              variant="ghost"
-              colorScheme="yellow"
-              leftIcon={<FaQuestionCircle />}
-              _focus={{
-                boxShadow: "none",
-                outline: "none",
-              }}
-              color="gray.900"
-              _hover={{ bg: "yellow.400" }}
-              fontSize="sm"
-              onClick={(e) => goTo(e, "/")}
-            >
-              Como Funciona
-            </Button>
+            <Link href="/">
+              <Button
+                size="lg"
+                borderRadius="sm"
+                variant="ghost"
+                colorScheme="yellow"
+                leftIcon={<FaHome />}
+                _focus={{
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+                color="gray.900"
+                _hover={{ bg: "yellow.400" }}
+                fontSize="sm"
+              >
+                Início
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button
+                size="lg"
+                borderRadius="sm"
+                variant="ghost"
+                colorScheme="yellow"
+                leftIcon={<FaTags />}
+                _focus={{
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+                color="gray.900"
+                _hover={{ bg: "yellow.400" }}
+                fontSize="sm"
+                onClick={(e) => goTo(e, "/produtos/todos")}
+              >
+                Produtos
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button
+                size="lg"
+                borderRadius="sm"
+                variant="ghost"
+                colorScheme="yellow"
+                leftIcon={<FaInfoCircle />}
+                _focus={{
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+                color="gray.900"
+                _hover={{ bg: "yellow.400" }}
+                fontSize="sm"
+              >
+                Sobre Nós
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button
+                size="lg"
+                borderRadius="sm"
+                variant="ghost"
+                colorScheme="yellow"
+                leftIcon={<FaPhone />}
+                _focus={{
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+                color="gray.900"
+                _hover={{ bg: "yellow.400" }}
+                fontSize="sm"
+              >
+                Fale Conosco
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button
+                size="lg"
+                borderRadius="sm"
+                variant="ghost"
+                colorScheme="yellow"
+                leftIcon={<FaQuestionCircle />}
+                _focus={{
+                  boxShadow: "none",
+                  outline: "none",
+                }}
+                color="gray.900"
+                _hover={{ bg: "yellow.400" }}
+                fontSize="sm"
+              >
+                Como Funciona
+              </Button>
+            </Link>
           </Flex>
         </Flex>
       </FixedPanel>
@@ -324,7 +337,6 @@ export default function HeaderApp() {
                 colorScheme="gray"
                 leftIcon={<FaHome />}
                 fontSize="sm"
-                onClick={(e) => goTo(e, "/")}
                 isFullWidth
                 mb={3}
                 mt={2}
@@ -337,7 +349,6 @@ export default function HeaderApp() {
                 colorScheme="gray"
                 leftIcon={<FaTags />}
                 fontSize="sm"
-                onClick={(e) => goTo(e, "/")}
                 isFullWidth
                 mb={3}
               >
@@ -349,7 +360,6 @@ export default function HeaderApp() {
                 colorScheme="gray"
                 leftIcon={<FaInfoCircle />}
                 fontSize="sm"
-                onClick={(e) => goTo(e, "/")}
                 isFullWidth
                 mb={3}
               >
@@ -361,7 +371,6 @@ export default function HeaderApp() {
                 colorScheme="gray"
                 leftIcon={<FaPhone />}
                 fontSize="sm"
-                onClick={(e) => goTo(e, "/")}
                 isFullWidth
                 mb={3}
               >
@@ -373,7 +382,6 @@ export default function HeaderApp() {
                 colorScheme="gray"
                 leftIcon={<FaQuestionCircle />}
                 fontSize="sm"
-                onClick={(e) => goTo(e, "/")}
                 isFullWidth
                 mb={3}
               >
