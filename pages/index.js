@@ -16,6 +16,7 @@ import {
   Image as ChakraImage,
   Input,
   Textarea,
+  IconButton,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { FaPaintBrush, FaCreditCard, FaTruck, FaCheck } from "react-icons/fa";
@@ -23,19 +24,38 @@ import {
   RiMoneyDollarCircleFill,
   RiSendPlaneFill,
   RiWhatsappLine,
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
 } from "react-icons/ri";
 import { useRouter } from "next/router";
 import config from "../configs/index";
 import Carousel from "react-multi-carousel";
 
+const isBrowser = typeof window !== "undefined";
+
 export default function Home() {
   const route = useRouter();
-
   function goTo(e, href) {
     e.preventDefault();
     route.push(href);
   }
-
+  const ButtonGroup = ({ next, previous }) => {
+    return (
+      <Flex position="absolute" justify="center" mt={3} w="88vw">
+        <IconButton
+          onClick={() => previous()}
+          icon={<RiArrowLeftSLine />}
+          fontSize={"35px"}
+          mr={5}
+        />
+        <IconButton
+          onClick={() => next()}
+          icon={<RiArrowRightSLine />}
+          fontSize={"35px"}
+        />
+      </Flex>
+    );
+  };
   return (
     <ContainerApp>
       <Head>
@@ -64,7 +84,7 @@ export default function Home() {
         <Banner />
         <Box
           bg="linear-gradient( 180deg, rgba(252,252,252,1) 0%, rgba(238,238,238,1) 49%, rgba(252,252,252,1) 100% )"
-          display="flex"
+          display={["none", "none", "none", "flex", "flex"]}
           alignItems="center"
           justifyContent="center"
           p="5px"
@@ -92,7 +112,10 @@ export default function Home() {
             </Flex>
           </Grid>
         </Box>
-        <Flex justify="center">
+        <Flex
+          justify="center"
+          display={["none", "none", "none", "flex", "flex"]}
+        >
           <Image
             src="/img/shadow-web.png"
             width={1350}
@@ -160,7 +183,7 @@ export default function Home() {
       <ContainerNonFixed>
         <Box
           backgroundImage={`url(/img/middle-web.png)`}
-          backgroundSize="100%"
+          backgroundSize="cover"
           backgroundRepeat="no-repeat"
           mt={20}
           backgroundPosition="bottom"
@@ -169,55 +192,137 @@ export default function Home() {
             <Image src="/img/text-web.png" width={600} height={130} />
           </Flex>
           <Center>
-            <Heading color="white">UNIFORME PARA EVENTOS</Heading>
+            <Heading color="white" textAlign="center">
+              UNIFORME PARA EVENTOS
+            </Heading>
           </Center>
-          <Container maxW="xl">
-            <Grid templateColumns={"500px 1fr"}>
-              <Flex mb={"-120px"}>
-                <Image
-                  src="/img/camiseta-two-web.png"
-                  width={500}
-                  height={450}
-                  objectFit="cover"
-                  objectPosition="relative"
-                />
-              </Flex>
-              <Flex align="center">
-                <Text fontSize="2xl" fontWeight="700" color="white" mt={-10}>
-                  Trabalhamos para levar qualidade com preço justo aos nossos
-                  clientes, buscamos sempre entender e aprender com cada pedido
-                  e com cada pessoa, assim sempre melhorando nossos processos.
-                </Text>
-              </Flex>
-            </Grid>
-          </Container>
+          <Grid
+            templateColumns={[
+              "100vw",
+              "100vw",
+              "400px 1fr",
+              "500px 1fr",
+              "500px 1fr",
+            ]}
+            justifyContent="center"
+            maxWidth={"100%"}
+          >
+            <Flex
+              mb={["0px", "0px", "-120px", "-120px", "-120px"]}
+              display={["none", "none", "none", "flex", "flex"]}
+            >
+              <Image
+                src="/img/camiseta-two-web.png"
+                width={500}
+                height={450}
+                objectFit="cover"
+                objectPosition="relative"
+              />
+            </Flex>
+            <Flex
+              mb={["0px", "0px", "-120px", "-120px", "-120px"]}
+              display={["none", "none", "flex", "none", "none"]}
+              align={"center"}
+              w={"100%"}
+              justify="center"
+              mt={[2, 2, 0, 0, 0]}
+            >
+              <Image
+                src="/img/camiseta-two-web.png"
+                width={400}
+                height={350}
+                objectFit="cover"
+                objectPosition="relative"
+              />
+            </Flex>
+            <Flex
+              mb={["20px", "20px", "-120px", "-120px", "-120px"]}
+              display={["flex", "flex", "none", "none", "none"]}
+              align={"center"}
+              w={"100%"}
+              justify="center"
+              mt={[2, 2, 0, 0, 0]}
+            >
+              <Image
+                src="/img/camiseta-two-web.png"
+                width={300}
+                height={250}
+                objectFit="cover"
+                objectPosition="relative"
+              />
+            </Flex>
+            <Flex align="center">
+              <Text
+                fontSize={["lg", "lg", "lg", "2xl", "2xl"]}
+                fontWeight="700"
+                color="white"
+                mt={-10}
+                textAlign="justify"
+                mb={[20, 20, 0, 0, 0]}
+                p={[7, 7, 7, 10, 10]}
+              >
+                Trabalhamos para levar qualidade com preço justo aos nossos
+                clientes, buscamos sempre entender e aprender com cada pedido e
+                com cada pessoa, assim sempre melhorando nossos processos.
+              </Text>
+            </Flex>
+          </Grid>
         </Box>
         <Grid
-          templateColumns={"1fr 1fr"}
+          templateColumns={[
+            "100vw",
+            "100vw",
+            "45vw 45vw",
+            "45vw 45vw",
+            "45vw 45vw",
+          ]}
           bg={
             "linear-gradient( 180deg, rgba(255, 255, 255, 1) 0%, rgba(221, 221, 221, 1) 100% )"
           }
           justifyContent="center"
         >
-          <Box display="flex" alignItems="center" flexDirection="column">
-            <Box w={"550px"}>
+          <Box display="flex" alignItems="center" flexDirection="column" p={10}>
+            <Box w={"100%"} pr={[2, 20, 0, 0, 0]} pl={[2, 20, 0, 0, 0]}>
               <Center>
-                <Heading mt={"120px"}>UNIFORMES PARA ACADEMIA</Heading>
+                <Heading
+                  mt={["5px", "5px", "85px", "85px", "85px"]}
+                  fontSize={["xl", "2xl", "xl", "2xl", "4xl"]}
+                  textAlign="center"
+                >
+                  UNIFORMES PARA ACADEMIA
+                </Heading>
               </Center>
               <Box>
-                <Text fontWeight="700" mt={5} fontSize={"lg"}>
+                <Text
+                  fontWeight="700"
+                  mt={5}
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
                   <Icon as={FaCheck} color="green.400" mr={5} />
                   DESEMPENHO DRY FIT PREMIUM
                 </Text>
-                <Text fontWeight="700" fontSize={"lg"}>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
                   <Icon as={FaCheck} color="green.400" mr={5} />
                   MODELAGEM EXCLUSIVA
                 </Text>
-                <Text fontWeight="700" fontSize={"lg"}>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
                   <Icon as={FaCheck} color="green.400" mr={5} />
                   PERSONALIZADA COM SUA LOGO
                 </Text>
-                <Text fontWeight="700" fontSize={"lg"}>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
                   <Icon as={FaCheck} color="green.400" mr={5} />
                   DESEMPENHO QUE AFASTA O SUOR DA PELE
                 </Text>
@@ -226,18 +331,32 @@ export default function Home() {
                 colorScheme="green"
                 borderRadius="lg"
                 isFullWidth
-                size="lg"
+                size={"lg"}
                 mt={6}
               >
                 SOLICITE UM ORÇAMENTO
               </Button>
             </Box>
           </Box>
-          <Box display="flex" justifyContent="center">
+          <Box
+            display={["none", "none", "flex", "flex", "flex"]}
+            justifyContent="center"
+          >
             <Image
               src="/img/camiseta-three-web.png"
               width={550}
               height={450}
+              objectFit="contain"
+            />
+          </Box>
+          <Box
+            display={["flex", "flex", "none", "none", "none"]}
+            justifyContent="center"
+          >
+            <Image
+              src="/img/camiseta-three-web.png"
+              width={320}
+              height={220}
               objectFit="contain"
             />
           </Box>
@@ -251,18 +370,21 @@ export default function Home() {
         </Box>
         <Container maxW="xl" mt={10}>
           <Carousel
-            additionalTransfrom={0}
-            arrows
+            additionalTransfrom={2}
+            arrows={false}
             autoPlaySpeed={3000}
-            centerMode={true}
+            centerMode={false}
             focusOnSelect={false}
             infinite
             itemClass=""
             keyBoardControl
-            minimumTouchDrag={80}
+            minimumTouchDrag={20}
             renderButtonGroupOutside={true}
             renderDotsOutside={true}
             responsive={config.carousel}
+            ssr
+            deviceType={isBrowser}
+            customButtonGroup={<ButtonGroup />}
           >
             <Box w={"200px"} h={"250px"} p={1}>
               <Box
@@ -472,24 +594,28 @@ export default function Home() {
       </Fixed>
 
       <ContainerNonFixed>
-        <Box mt={20} bg="gray.900" pt={10} pb={10}>
-          <Container maxW="xl">
+        <Box mt={20} bg="gray.900" pt={10} pb={20}>
+          <Container maxW={["100vw", "100vw", "xl", "xl", "xl"]}>
             <Box textAlign="center" mb={10}>
               <Heading color="yellow.400">DEPOIMENTOS</Heading>
             </Box>
+
             <Carousel
-              additionalTransfrom={0}
-              arrows
+              additionalTransfrom={1}
+              arrows={false}
               autoPlaySpeed={3000}
-              centerMode={true}
+              centerMode={false}
               focusOnSelect={false}
-              infinite
+              ssr
+              infinite={false}
               itemClass=""
               keyBoardControl
               minimumTouchDrag={80}
               renderButtonGroupOutside={true}
               renderDotsOutside={true}
               responsive={config.depoiments}
+              deviceType={isBrowser}
+              customButtonGroup={<ButtonGroup />}
             >
               <Box
                 display="flex"
@@ -718,8 +844,12 @@ export default function Home() {
             <Box textAlign="center">
               <Heading>ENTRE EM CONTATO</Heading>
             </Box>
-            <Grid templateColumns={"1fr 1fr"} gap={"30px"} mt={10}>
-              <Box>
+            <Grid
+              templateColumns={["1fr", "1fr", "1fr", "1fr 1fr", "1fr 1fr"]}
+              gap={"30px"}
+              mt={10}
+            >
+              <Box p={10}>
                 <Text fontSize="sm" fontWeight="700" mb={2}>
                   Envie sua Mensagem
                 </Text>
@@ -788,7 +918,6 @@ export default function Home() {
                     size="lg"
                     fontSize="4xl"
                     h={20}
-                    w={`300px`}
                   >
                     Clique Aqui
                   </Button>

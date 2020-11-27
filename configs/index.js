@@ -3,23 +3,24 @@ const config = {
     desktop: {
       breakpoint: {
         max: 3000,
-        min: 1024,
+        min: 1100,
       },
-      items: 4,
+      items: 5,
       partialVisibilityGutter: 60,
     },
     mobile: {
       breakpoint: {
-        max: 464,
-        min: 0,
+        max: 650,
+        min: 320,
       },
       items: 1,
-      partialVisibilityGutter: 30,
+      slidesToSlide: 1,
+      partialVisibilityGutter: 5,
     },
     tablet: {
       breakpoint: {
-        max: 1024,
-        min: 464,
+        max: 1100,
+        min: 650,
       },
       items: 3,
       partialVisibilityGutter: 30,
@@ -32,23 +33,26 @@ const config = {
         min: 1085,
       },
       items: 3,
-      partialVisibilityGutter: 60,
+      slidesToSlide: 3,
+      partialVisibilityGutter: 300,
     },
     mobile: {
       breakpoint: {
-        max: 835,
+        max: 650,
         min: 0,
       },
       items: 1,
-      partialVisibilityGutter: 30,
+      slidesToSlide: 1,
+      partialVisibilityGutter: 60,
     },
     tablet: {
       breakpoint: {
         max: 1085,
-        min: 835,
+        min: 650,
       },
       items: 2,
-      partialVisibilityGutter: 30,
+      slidesToSlide: 2,
+      partialVisibilityGutter: 60,
     },
   },
 };

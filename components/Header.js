@@ -11,7 +11,8 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
+  Icon,
+  Heading,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import {
@@ -192,7 +193,27 @@ export default function HeaderApp() {
               <Image src="/img/logo.png" width={95} height={35} quality={100} />
             </Box>
           </Flex>
-          <Flex w={"70%"} h="50px" justify="flex-end" align="center">
+          <Flex
+            w={"70%"}
+            h="50px"
+            justify="flex-end"
+            align="center"
+            display={["flex", "flex", "flex", "none", "none"]}
+          >
+            <IconButton
+              aria-label="Search database"
+              icon={menuOpen === false ? <FaBars /> : <FaTimes />}
+              fontSize="28px"
+              onClick={() => setMenuOpen(!menuOpen)}
+            />
+          </Flex>
+          <Flex
+            w={"70%"}
+            h="50px"
+            justify="flex-end"
+            align="center"
+            display={["none", "none", "none", "flex", "flex"]}
+          >
             <Button
               size="lg"
               borderRadius="sm"
@@ -289,10 +310,85 @@ export default function HeaderApp() {
       >
         <DrawerOverlay>
           <DrawerContent>
-            <DrawerCloseButton fontSize={"15px"} mt={"7px"} />
-            <DrawerHeader bg="yellow.300">MENU</DrawerHeader>
+            <DrawerHeader bg="yellow.300">
+              <Flex align="center">
+                <Icon as={FaBars} fontSize={"25px"} mr={5} />
+                <Heading size="lg">MENU</Heading>
+              </Flex>
+            </DrawerHeader>
 
-            <DrawerBody></DrawerBody>
+            <DrawerBody>
+              <Button
+                size="lg"
+                borderRadius="lg"
+                colorScheme="gray"
+                leftIcon={<FaHome />}
+                fontSize="sm"
+                onClick={(e) => goTo(e, "/")}
+                isFullWidth
+                mb={3}
+                mt={2}
+              >
+                Início
+              </Button>
+              <Button
+                size="lg"
+                borderRadius="lg"
+                colorScheme="gray"
+                leftIcon={<FaTags />}
+                fontSize="sm"
+                onClick={(e) => goTo(e, "/")}
+                isFullWidth
+                mb={3}
+              >
+                Produtos
+              </Button>
+              <Button
+                size="lg"
+                borderRadius="lg"
+                colorScheme="gray"
+                leftIcon={<FaInfoCircle />}
+                fontSize="sm"
+                onClick={(e) => goTo(e, "/")}
+                isFullWidth
+                mb={3}
+              >
+                Sobre Nós
+              </Button>
+              <Button
+                size="lg"
+                borderRadius="lg"
+                colorScheme="gray"
+                leftIcon={<FaPhone />}
+                fontSize="sm"
+                onClick={(e) => goTo(e, "/")}
+                isFullWidth
+                mb={3}
+              >
+                Fale Conosco
+              </Button>
+              <Button
+                size="lg"
+                borderRadius="lg"
+                colorScheme="gray"
+                leftIcon={<FaQuestionCircle />}
+                fontSize="sm"
+                onClick={(e) => goTo(e, "/")}
+                isFullWidth
+                mb={3}
+              >
+                Como Funciona
+              </Button>
+            </DrawerBody>
+            <DrawerFooter>
+              <Button
+                colorScheme="yellow"
+                mr={3}
+                onClick={() => setMenuOpen(false)}
+              >
+                Fechar
+              </Button>
+            </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>

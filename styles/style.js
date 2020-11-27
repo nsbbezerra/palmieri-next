@@ -10,6 +10,7 @@ export const ContainerApp = styled.main`
 export const ContainerNonFixed = styled.div`
   display: block;
   width: 100%;
+  max-width: 100%;
 `;
 
 export const Fixed = styled.section`
