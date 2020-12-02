@@ -331,69 +331,75 @@ export default function HeaderApp() {
             </DrawerHeader>
 
             <DrawerBody>
-              <Button
-                size="lg"
-                borderRadius="lg"
-                colorScheme="gray"
-                leftIcon={<FaHome />}
-                fontSize="sm"
-                isFullWidth
-                mb={3}
-                mt={2}
-              >
-                Início
-              </Button>
-              <Button
-                size="lg"
-                borderRadius="lg"
-                colorScheme="gray"
-                leftIcon={<FaTags />}
-                fontSize="sm"
-                isFullWidth
-                mb={3}
-              >
-                Produtos
-              </Button>
-              <Button
-                size="lg"
-                borderRadius="lg"
-                colorScheme="gray"
-                leftIcon={<FaInfoCircle />}
-                fontSize="sm"
-                isFullWidth
-                mb={3}
-              >
-                Sobre Nós
-              </Button>
-              <Button
-                size="lg"
-                borderRadius="lg"
-                colorScheme="gray"
-                leftIcon={<FaPhone />}
-                fontSize="sm"
-                isFullWidth
-                mb={3}
-              >
-                Fale Conosco
-              </Button>
-              <Button
-                size="lg"
-                borderRadius="lg"
-                colorScheme="gray"
-                leftIcon={<FaQuestionCircle />}
-                fontSize="sm"
-                isFullWidth
-                mb={3}
-              >
-                Como Funciona
-              </Button>
+              <Link href="/">
+                <Button
+                  size="lg"
+                  borderRadius="lg"
+                  colorScheme="gray"
+                  leftIcon={<FaHome />}
+                  fontSize="sm"
+                  isFullWidth
+                  mb={3}
+                  mt={2}
+                >
+                  Início
+                </Button>
+              </Link>
+              <Link href={"/produtos/todos"}>
+                <Button
+                  size="lg"
+                  borderRadius="lg"
+                  colorScheme="gray"
+                  leftIcon={<FaTags />}
+                  fontSize="sm"
+                  isFullWidth
+                  mb={3}
+                >
+                  Produtos
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button
+                  size="lg"
+                  borderRadius="lg"
+                  colorScheme="gray"
+                  leftIcon={<FaInfoCircle />}
+                  fontSize="sm"
+                  isFullWidth
+                  mb={3}
+                >
+                  Sobre Nós
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button
+                  size="lg"
+                  borderRadius="lg"
+                  colorScheme="gray"
+                  leftIcon={<FaPhone />}
+                  fontSize="sm"
+                  isFullWidth
+                  mb={3}
+                >
+                  Fale Conosco
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button
+                  size="lg"
+                  borderRadius="lg"
+                  colorScheme="gray"
+                  leftIcon={<FaQuestionCircle />}
+                  fontSize="sm"
+                  isFullWidth
+                  mb={3}
+                >
+                  Como Funciona
+                </Button>
+              </Link>
             </DrawerBody>
             <DrawerFooter>
-              <Button
-                colorScheme="yellow"
-                mr={3}
-                onClick={() => setMenuOpen(false)}
-              >
+              <Button colorScheme="yellow" onClick={() => setMenuOpen(false)}>
                 Fechar
               </Button>
             </DrawerFooter>
