@@ -24,7 +24,6 @@ import {
 import { ContainerApp, Fixed, ContainerNonFixed } from "../../styles/style";
 import HeaderApp from "../../components/Header";
 import FooterApp from "../../components/Footer";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -58,27 +57,6 @@ export default function Produtos() {
 
   return (
     <ContainerApp>
-      <Head>
-        <title>
-          Palmieri Uniformes | Uniforme Empresarial, Uniforme Esportivo,
-          Uniforme Promocional, Abadás
-        </title>
-        <link rel="icon" href="/icone.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="description"
-          content="Uniformes para todos os segmentos, uniformes esportivos, para academia, para formandos, para eventos, para empresas, abadás para festas, máscadas e muito mais"
-        />
-        <meta
-          name="keywords"
-          content="uniformes, abadá, uniforme, esportivo, esportivos, academia, formandos, eventos, máscara, empresas, serigrafia, malha"
-        />
-        <meta name="robots" content="index,nofollow" />
-        <meta name="author" content="Natanael Bezerra - NK Informática" />
-        <meta name="googletboot" content="index,nofollow" />
-        <meta httpEquiv="content-language" content="pt-br" />
-        <meta content="Global" name="distribution" />
-      </Head>
       <ContainerNonFixed>
         <HeaderApp />
         <Box w="100%" display="block">

@@ -1,6 +1,5 @@
 import HeaderApp from "../components/Header";
 import FooterApp from "../components/Footer";
-import Head from "next/head";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../styles/style";
 import Banner from "../components/Banner";
 import {
@@ -14,16 +13,12 @@ import {
   Container,
   Center,
   Image as ChakraImage,
-  Input,
-  Textarea,
   IconButton,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { FaPaintBrush, FaCreditCard, FaTruck, FaCheck } from "react-icons/fa";
 import {
   RiMoneyDollarCircleFill,
-  RiSendPlaneFill,
-  RiWhatsappLine,
   RiArrowLeftSLine,
   RiArrowRightSLine,
 } from "react-icons/ri";
@@ -59,27 +54,6 @@ export default function Home() {
   };
   return (
     <ContainerApp>
-      <Head>
-        <title>
-          Palmieri Uniformes | Uniforme Empresarial, Uniforme Esportivo,
-          Uniforme Promocional, Abadás
-        </title>
-        <link rel="icon" href="/icone.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="description"
-          content="Uniformes para todos os segmentos, uniformes esportivos, para academia, para formandos, para eventos, para empresas, abadás para festas, máscadas e muito mais"
-        />
-        <meta
-          name="keywords"
-          content="uniformes, abadá, uniforme, esportivo, esportivos, academia, formandos, eventos, máscara, empresas, serigrafia, malha"
-        />
-        <meta name="robots" content="index,nofollow" />
-        <meta name="author" content="Natanael Bezerra - NK Informática" />
-        <meta name="googletboot" content="index,nofollow" />
-        <meta httpEquiv="content-language" content="pt-br" />
-        <meta content="Global" name="distribution" />
-      </Head>
       <ContainerNonFixed>
         <HeaderApp />
         <Banner />
@@ -841,95 +815,8 @@ export default function Home() {
       </ContainerNonFixed>
 
       <ContainerNonFixed>
-        <Box bg={"gray.100"} pt={10} pb={10}>
-          <Container maxW="lg">
-            <Box textAlign="center">
-              <Heading>ENTRE EM CONTATO</Heading>
-            </Box>
-            <Grid
-              templateColumns={["1fr", "1fr", "1fr", "1fr 1fr", "1fr 1fr"]}
-              gap={"30px"}
-              mt={10}
-            >
-              <Box p={10}>
-                <Text fontSize="sm" fontWeight="700" mb={2}>
-                  Envie sua Mensagem
-                </Text>
-                <Input
-                  placeholder="Nome"
-                  focusBorderColor="yellow.400"
-                  bg={"white"}
-                  borderColor="gray.400"
-                  mb={2}
-                  size="sm"
-                />
-                <Input
-                  placeholder="Telefone"
-                  type="number"
-                  focusBorderColor="yellow.400"
-                  bg={"white"}
-                  borderColor="gray.400"
-                  mb={2}
-                  size="sm"
-                />
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  focusBorderColor="yellow.400"
-                  bg={"white"}
-                  borderColor="gray.400"
-                  mb={2}
-                  size="sm"
-                />
-                <Input
-                  placeholder="Quantidade de Camisetas"
-                  type="number"
-                  focusBorderColor="yellow.400"
-                  bg={"white"}
-                  borderColor="gray.400"
-                  mb={2}
-                  size="sm"
-                />
-                <Textarea
-                  placeholder="Sua mensagem aqui"
-                  focusBorderColor="yellow.400"
-                  bg={"white"}
-                  borderColor="gray.400"
-                  rows={4}
-                  mb={2}
-                  size="sm"
-                />
-                <Button
-                  isFullWidth
-                  colorScheme="yellow"
-                  leftIcon={<RiSendPlaneFill />}
-                >
-                  ENVIAR MENSAGEM
-                </Button>
-              </Box>
-              <Box>
-                <Center>
-                  <Text fontSize="sm" fontWeight="700" mb={2}>
-                    Solicite um orçamento via Whatsapp
-                  </Text>
-                </Center>
-                <Center>
-                  <Button
-                    leftIcon={<RiWhatsappLine />}
-                    colorScheme="green"
-                    size="lg"
-                    fontSize="4xl"
-                    h={20}
-                  >
-                    Clique Aqui
-                  </Button>
-                </Center>
-              </Box>
-            </Grid>
-          </Container>
-        </Box>
+        <FooterApp />
       </ContainerNonFixed>
-      <FooterApp />
     </ContainerApp>
   );
 }

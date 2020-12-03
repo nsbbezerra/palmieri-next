@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -21,61 +20,47 @@ import {
   Icon,
   Center,
   AspectRatio,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../../styles/style";
 import HeaderApp from "../../components/Header";
 import FooterApp from "../../components/Footer";
 import { AiOutlineZoomIn } from "react-icons/ai";
 import { RiFileTextFill } from "react-icons/ri";
-import { FaPencilRuler, FaRuler, FaVideo } from "react-icons/fa";
+import { FaRuler, FaVideo } from "react-icons/fa";
 
 export default function ItemCatalogo() {
   const router = useRouter();
   const [route, setRoute] = useState("");
   const [productName, setProductName] = useState("CAMISETA MASCULINA");
+  const [linkImage, setLinkImage] = useState("/img/camiseta.png");
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const { item } = router.query;
     setRoute(item);
   }, [router]);
 
-  const CustomTabs = (sz, fs) => {
+  const CustomTabs = (sz) => {
     return (
-      <Tabs
-        variant="soft-rounded"
-        colorScheme="blue"
-        borderRadius="sm"
-        size={sz}
-      >
+      <Tabs variant="enclosed" colorScheme="yellow" borderRadius="sm" size={sz}>
         <TabList>
-          <Tab
-            _focus={{ outline: "none" }}
-            _selected={{ bg: "gray.800", color: "gray.100" }}
-            fontSize={fs}
-            p={1}
-            mr={2}
-          >
-            <Icon as={RiFileTextFill} mr={2} />
+          <Tab p={sz === "xs" ? 2 : ""} borderRadius="lg">
+            {sz === "xs" ? "" : <Icon as={RiFileTextFill} mr={2} />}
             DESCRIÇÃO
           </Tab>
-          <Tab
-            _focus={{ outline: "none" }}
-            _selected={{ bg: "gray.800", color: "gray.100" }}
-            fontSize={fs}
-            p={1}
-            mr={2}
-          >
-            <Icon as={FaRuler} mr={2} />
+          <Tab p={sz === "xs" ? 2 : ""} borderRadius="lg">
+            {sz === "xs" ? "" : <Icon as={FaRuler} mr={2} />}
             MODELAGEM
           </Tab>
-          <Tab
-            _focus={{ outline: "none" }}
-            _selected={{ bg: "gray.800", color: "gray.100" }}
-            fontSize={fs}
-            p={1}
-            mr={2}
-          >
-            <Icon as={FaVideo} mr={2} />
+          <Tab p={sz === "xs" ? 2 : ""} borderRadius="lg">
+            {sz === "xs" ? "" : <Icon as={FaVideo} mr={2} />}
             VÍDEO
           </Tab>
         </TabList>
@@ -117,7 +102,7 @@ export default function ItemCatalogo() {
           </TabPanel>
           <TabPanel>
             <Center mb={4}>
-              <Text fontSize="xl" fontWeight="700">
+              <Text fontSize="xl" fontWeight="700" textAlign="center">
                 COMO TIRAR SUAS MEDIDAS
               </Text>
             </Center>
@@ -234,27 +219,6 @@ export default function ItemCatalogo() {
 
   return (
     <ContainerApp>
-      <Head>
-        <title>
-          Palmieri Uniformes | Uniforme Empresarial, Uniforme Esportivo,
-          Uniforme Promocional, Abadás
-        </title>
-        <link rel="icon" href="/icone.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-          name="description"
-          content="Uniformes para todos os segmentos, uniformes esportivos, para academia, para formandos, para eventos, para empresas, abadás para festas, máscadas e muito mais"
-        />
-        <meta
-          name="keywords"
-          content="uniformes, abadá, uniforme, esportivo, esportivos, academia, formandos, eventos, máscara, empresas, serigrafia, malha"
-        />
-        <meta name="robots" content="index,nofollow" />
-        <meta name="author" content="Natanael Bezerra - NK Informática" />
-        <meta name="googletboot" content="index,nofollow" />
-        <meta httpEquiv="content-language" content="pt-br" />
-        <meta content="Global" name="distribution" />
-      </Head>
       <ContainerNonFixed>
         <HeaderApp />
         <Box w="100%" display="block">
@@ -297,7 +261,7 @@ export default function ItemCatalogo() {
           </Breadcrumb>
 
           <Box mt={10} textAlign="center" mb={10}>
-            <Heading>{productName}</Heading>
+            <Heading textAlign="center">{productName}</Heading>
             <Text>
               Catálogo de modelos prontos para você personalizar suas camisetas
               promocionais de acordo com a sua necessidade.
@@ -331,6 +295,7 @@ export default function ItemCatalogo() {
                   p={1}
                   isFullWidth
                   leftIcon={<AiOutlineZoomIn />}
+                  onClick={() => setModal(true)}
                 >
                   Ampliar
                 </Button>
@@ -475,15 +440,17 @@ export default function ItemCatalogo() {
         </Container>
       </Fixed>
       <ContainerNonFixed>
-        <Box bg="gray.100">
+        <Box>
           <ContainerApp>
             <Fixed>
               <Container maxW="xl" mt={10} mb={10}>
-                <Box display={["none", "none", "block", "block", "block"]}>
-                  {CustomTabs("lg", "md")}
-                </Box>
-                <Box display={["block", "block", "none", "none", "none"]}>
-                  {CustomTabs("xs", "xs")}
+                <Box borderWidth="1px" borderRadius="lg" p={5}>
+                  <Box display={["none", "none", "block", "block", "block"]}>
+                    {CustomTabs("lg", "md")}
+                  </Box>
+                  <Box display={["block", "block", "none", "none", "none"]}>
+                    {CustomTabs("xs", "xs")}
+                  </Box>
                 </Box>
               </Container>
             </Fixed>
@@ -493,6 +460,29 @@ export default function ItemCatalogo() {
       <ContainerNonFixed>
         <FooterApp />
       </ContainerNonFixed>
+
+      <Modal
+        isOpen={modal}
+        onClose={() => setModal(false)}
+        scrollBehavior="outside"
+        size="xl"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Visualizar Imagem</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box>
+              <Image
+                src={linkImage}
+                width={250}
+                height={250}
+                layout="responsive"
+              />
+            </Box>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </ContainerApp>
   );
 }

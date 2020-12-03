@@ -55,5 +55,12 @@ const config = {
       partialVisibilityGutter: 60,
     },
   },
+
+  general: {
+    bitrix:
+      "https://palmieriuniformes.bitrix24.com.br/rest/1/0umu0cwegmu7d07h/",
+    message: "Olá Palmieri Uniformes, vim pelo site",
+    phone: "5563985014015",
+  },
 };
 export default config;

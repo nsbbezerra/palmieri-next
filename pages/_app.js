@@ -1,4 +1,4 @@
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../styles/theme";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
@@ -6,8 +6,7 @@ import "../styles/pagination.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <CSSReset />
+    <ChakraProvider theme={theme} resetCSS={true}>
       <Component {...pageProps} />
     </ChakraProvider>
   );
