@@ -29,7 +29,7 @@ import Link from "next/link";
 
 const isBrowser = typeof window !== "undefined";
 
-export default function Home() {
+export default function Home({ info }) {
   const route = useRouter();
   function goTo(e, href) {
     e.preventDefault();
@@ -52,6 +52,9 @@ export default function Home() {
       </Flex>
     );
   };
+
+  const { category, products, productsFooter, comments, urlPhoto } = info;
+
   return (
     <ContainerApp>
       <ContainerNonFixed>
@@ -115,44 +118,56 @@ export default function Home() {
             justifyContent="center"
             mt={10}
           >
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-
-              <Flex
-                p={4}
-                direction="column"
-                justify="center"
-                align="center"
-                h="80px"
-              >
-                <Text fontSize="md" fontWeight="700" textAlign="center">
-                  Uniformes de Academia
+            {JSON.stringify(category) === "{}" ? (
+              <Box h={"350px"}>
+                <Text fontSize="5xl" fontWeight="">
+                  Nenhum dado para mostrar!
                 </Text>
-                <Link href="/produtos/1">
-                  <Button
-                    size="sm"
-                    variant="link"
-                    colorScheme="yellow"
-                    mt={2}
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
+              </Box>
+            ) : (
+              category.map((cat) => (
+                <Box
+                  borderWidth="1px"
+                  w="250px"
+                  shadow="lg"
+                  borderRadius="lg"
+                  overflow="hidden"
+                  key={cat._id}
+                >
+                  <Image
+                    src={`${urlPhoto}/${cat.thumbnail}`}
+                    alt={cat.imageDescription}
+                    width={250}
+                    height={250}
+                    layout="intrinsic"
+                  />
+
+                  <Flex
+                    p={4}
+                    direction="column"
+                    justify="center"
+                    align="center"
+                    h="80px"
                   >
-                    Veja Mais
-                  </Button>
-                </Link>
-              </Flex>
-            </Box>
+                    <Text fontSize="md" fontWeight="700" textAlign="center">
+                      {cat.name}
+                    </Text>
+                    <Link href={`/produtos/${cat._id}`}>
+                      <Button
+                        size="sm"
+                        variant="link"
+                        colorScheme="yellow"
+                        mt={2}
+                        _focus={{ boxShadow: "none", outline: "none" }}
+                        p={1}
+                      >
+                        Veja Mais
+                      </Button>
+                    </Link>
+                  </Flex>
+                </Box>
+              ))
+            )}
           </Grid>
         </Container>
       </Fixed>
@@ -345,227 +360,64 @@ export default function Home() {
           <Text>Nosso Portifólio de Artes</Text>
         </Box>
         <Container maxW="xl" mt={10}>
-          <Carousel
-            additionalTransfrom={2}
-            arrows={false}
-            autoPlaySpeed={3000}
-            centerMode={false}
-            focusOnSelect={false}
-            infinite
-            itemClass=""
-            keyBoardControl
-            minimumTouchDrag={20}
-            renderButtonGroupOutside={true}
-            renderDotsOutside={true}
-            responsive={config.carousel}
-            ssr
-            deviceType={isBrowser}
-            customButtonGroup={<ButtonGroup />}
-          >
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
-                  >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
+          {JSON.stringify(products) === "{}" ? (
+            <Box h={"350px"}>
+              <Text fontSize="5xl" fontWeight="">
+                Nenhum dado para mostrar!
+              </Text>
             </Box>
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
+          ) : (
+            <Carousel
+              additionalTransfrom={2}
+              arrows={false}
+              autoPlaySpeed={3000}
+              centerMode={false}
+              focusOnSelect={false}
+              infinite
+              itemClass=""
+              keyBoardControl
+              minimumTouchDrag={20}
+              renderButtonGroupOutside={true}
+              renderDotsOutside={true}
+              responsive={config.carousel}
+              ssr
+              deviceType={isBrowser}
+              customButtonGroup={<ButtonGroup />}
+            >
+              {products.map((prod) => (
+                <Box w={"200px"} h={"250px"} p={1} key={prod._id}>
+                  <Box
+                    w={"195px"}
+                    borderWidth="1px"
+                    borderRadius="lg"
+                    shadow="md"
+                    overflow="hidden"
                   >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
-            </Box>
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
-                  >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
-            </Box>
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
-                  >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
-            </Box>
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
-                  >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
-            </Box>
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
-                  >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
-            </Box>
-            <Box w={"200px"} h={"250px"} p={1}>
-              <Box
-                w={"195px"}
-                borderWidth="1px"
-                borderRadius="lg"
-                shadow="md"
-                overflow="hidden"
-              >
-                <Image
-                  src="/img/camiseta.png"
-                  width={195}
-                  height={195}
-                  layout="intrinsic"
-                />
-                <Flex>
-                  <Button
-                    size="md"
-                    variant="ghost"
-                    colorScheme="yellow"
-                    isFullWidth
-                    _focus={{ boxShadow: "none", outline: "none" }}
-                    p={1}
-                    onClick={(e) => goTo(e, "/")}
-                  >
-                    Veja Mais
-                  </Button>
-                </Flex>
-              </Box>
-            </Box>
-          </Carousel>
+                    <Image
+                      src={`${urlPhoto}/${prod.thumbnail}`}
+                      alt={prod.imageDescription}
+                      width={195}
+                      height={195}
+                      layout="intrinsic"
+                    />
+                    <Flex>
+                      <Button
+                        size="md"
+                        variant="ghost"
+                        colorScheme="yellow"
+                        isFullWidth
+                        _focus={{ boxShadow: "none", outline: "none" }}
+                        p={1}
+                        onClick={(e) => goTo(e, `/catalogo/${prod._id}`)}
+                      >
+                        Veja Mais
+                      </Button>
+                    </Flex>
+                  </Box>
+                </Box>
+              ))}
+            </Carousel>
+          )}
         </Container>
       </Fixed>
 
@@ -575,248 +427,86 @@ export default function Home() {
             <Box textAlign="center" mb={10}>
               <Heading color="yellow.400">DEPOIMENTOS</Heading>
             </Box>
-
-            <Carousel
-              additionalTransfrom={1}
-              arrows={false}
-              autoPlaySpeed={3000}
-              centerMode={false}
-              focusOnSelect={false}
-              ssr
-              infinite={false}
-              itemClass=""
-              keyBoardControl
-              minimumTouchDrag={80}
-              renderButtonGroupOutside={true}
-              renderDotsOutside={true}
-              responsive={config.depoiments}
-              deviceType={isBrowser}
-              customButtonGroup={<ButtonGroup />}
-            >
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                w="255px"
-              >
-                <Flex
-                  bg="gray.200"
-                  borderRadius="lg"
-                  w={"250px"}
-                  h={"150px"}
-                  direction="column"
-                  align="center"
-                  p={2}
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    Meu depoimento é meu depoimento Meu depoimento é meu
-                    depoimento Meu depoimento é meu depoimento Meu depoimento é
-                    meu depoimento Meu depoimento é meu depoimento
-                  </Text>
-                </Flex>
-                <ChakraImage
-                  borderRadius="full"
-                  boxSize="80px"
-                  src="https://bit.ly/sage-adebayo"
-                  alt="Segun Adebayo"
-                  mt={-10}
-                  borderWidth="2px"
-                  borderColor="yellow.400"
-                  borderStyle="solid"
-                />
-                <Text color="gray.200" fontSize="sm">
-                  Segun Adebayo
+            {JSON.stringify(comments) === "{}" ? (
+              <Box h={"100px"}>
+                <Text fontSize="5xl" fontWeight="">
+                  Nenhum dado para mostrar!
                 </Text>
               </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                w="255px"
+            ) : (
+              <Carousel
+                additionalTransfrom={1}
+                arrows={false}
+                autoPlaySpeed={3000}
+                centerMode={false}
+                focusOnSelect={false}
+                ssr
+                infinite={false}
+                itemClass=""
+                keyBoardControl
+                minimumTouchDrag={80}
+                renderButtonGroupOutside={true}
+                renderDotsOutside={true}
+                responsive={config.depoiments}
+                deviceType={isBrowser}
+                customButtonGroup={<ButtonGroup />}
               >
-                <Flex
-                  bg="gray.200"
-                  borderRadius="lg"
-                  w={"250px"}
-                  h={"150px"}
-                  direction="column"
-                  align="center"
-                  p={2}
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    Meu depoimento é meu depoimento Meu depoimento é meu
-                    depoimento Meu depoimento é meu depoimento Meu depoimento é
-                    meu depoimento Meu depoimento é meu depoimento
-                  </Text>
-                </Flex>
-                <ChakraImage
-                  borderRadius="full"
-                  boxSize="80px"
-                  src="https://bit.ly/sage-adebayo"
-                  alt="Segun Adebayo"
-                  mt={-10}
-                  borderWidth="2px"
-                  borderColor="yellow.400"
-                  borderStyle="solid"
-                />
-                <Text color="gray.200" fontSize="sm">
-                  Segun Adebayo
-                </Text>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                w="255px"
-              >
-                <Flex
-                  bg="gray.200"
-                  borderRadius="lg"
-                  w={"250px"}
-                  h={"150px"}
-                  direction="column"
-                  align="center"
-                  p={2}
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    Meu depoimento é meu depoimento Meu depoimento é meu
-                    depoimento Meu depoimento é meu depoimento Meu depoimento é
-                    meu depoimento Meu depoimento é meu depoimento
-                  </Text>
-                </Flex>
-                <ChakraImage
-                  borderRadius="full"
-                  boxSize="80px"
-                  src="https://bit.ly/sage-adebayo"
-                  alt="Segun Adebayo"
-                  mt={-10}
-                  borderWidth="2px"
-                  borderColor="yellow.400"
-                  borderStyle="solid"
-                />
-                <Text color="gray.200" fontSize="sm">
-                  Segun Adebayo
-                </Text>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                w="255px"
-              >
-                <Flex
-                  bg="gray.200"
-                  borderRadius="lg"
-                  w={"250px"}
-                  h={"150px"}
-                  direction="column"
-                  align="center"
-                  p={2}
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    Meu depoimento é meu depoimento Meu depoimento é meu
-                    depoimento Meu depoimento é meu depoimento Meu depoimento é
-                    meu depoimento Meu depoimento é meu depoimento
-                  </Text>
-                </Flex>
-                <ChakraImage
-                  borderRadius="full"
-                  boxSize="80px"
-                  src="https://bit.ly/sage-adebayo"
-                  alt="Segun Adebayo"
-                  mt={-10}
-                  borderWidth="2px"
-                  borderColor="yellow.400"
-                  borderStyle="solid"
-                />
-                <Text color="gray.200" fontSize="sm">
-                  Segun Adebayo
-                </Text>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                w="255px"
-              >
-                <Flex
-                  bg="gray.200"
-                  borderRadius="lg"
-                  w={"250px"}
-                  h={"150px"}
-                  direction="column"
-                  align="center"
-                  p={2}
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    Meu depoimento é meu depoimento Meu depoimento é meu
-                    depoimento Meu depoimento é meu depoimento Meu depoimento é
-                    meu depoimento Meu depoimento é meu depoimento
-                  </Text>
-                </Flex>
-                <ChakraImage
-                  borderRadius="full"
-                  boxSize="80px"
-                  src="https://bit.ly/sage-adebayo"
-                  alt="Segun Adebayo"
-                  mt={-10}
-                  borderWidth="2px"
-                  borderColor="yellow.400"
-                  borderStyle="solid"
-                />
-                <Text color="gray.200" fontSize="sm">
-                  Segun Adebayo
-                </Text>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-                w="255px"
-              >
-                <Flex
-                  bg="gray.200"
-                  borderRadius="lg"
-                  w={"250px"}
-                  h={"150px"}
-                  direction="column"
-                  align="center"
-                  p={2}
-                >
-                  <Text fontSize="xs" textAlign="center">
-                    Meu depoimento é meu depoimento Meu depoimento é meu
-                    depoimento Meu depoimento é meu depoimento Meu depoimento é
-                    meu depoimento Meu depoimento é meu depoimento
-                  </Text>
-                </Flex>
-                <ChakraImage
-                  borderRadius="full"
-                  boxSize="80px"
-                  src="https://bit.ly/sage-adebayo"
-                  alt="Segun Adebayo"
-                  mt={-10}
-                  borderWidth="2px"
-                  borderColor="yellow.400"
-                  borderStyle="solid"
-                />
-                <Text color="gray.200" fontSize="sm">
-                  Segun Adebayo
-                </Text>
-              </Box>
-            </Carousel>
+                {comments.map((com) => (
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    flexDirection="column"
+                    w="255px"
+                    key={com._id}
+                  >
+                    <Flex
+                      bg="gray.200"
+                      borderRadius="lg"
+                      w={"250px"}
+                      h={"150px"}
+                      direction="column"
+                      align="center"
+                      p={2}
+                    >
+                      <Text fontSize="11px" textAlign="center">
+                        {com.text}
+                      </Text>
+                    </Flex>
+                    <ChakraImage
+                      borderRadius="full"
+                      boxSize="80px"
+                      src={`${urlPhoto}/${com.avatar}`}
+                      alt="Palmieri Uniformes"
+                      mt={-10}
+                      borderWidth="2px"
+                      borderColor="yellow.400"
+                      borderStyle="solid"
+                    />
+                    <Text color="gray.200" fontSize="sm">
+                      {com.author}
+                    </Text>
+                  </Box>
+                ))}
+              </Carousel>
+            )}
           </Container>
         </Box>
       </ContainerNonFixed>
 
       <ContainerNonFixed>
-        <FooterApp />
+        <FooterApp prod={productsFooter} />
       </ContainerNonFixed>
     </ContainerApp>
   );
 }
+
+export const getStaticProps = async () => {
+  const response = await fetch(`${config.general.urlApi}/home`);
+  const data = await response.json();
+  return {
+    props: {
+      info: data,
+    },
+  };
+};

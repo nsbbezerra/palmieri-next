@@ -35,7 +35,7 @@ import { RiSendPlaneFill, RiWhatsappLine } from "react-icons/ri";
 import axios from "axios";
 import configs from "../configs/index";
 
-export default function FooterApp() {
+export default function FooterApp({ prod }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -308,20 +308,24 @@ export default function FooterApp() {
             <Heading color="yellow.400" size="md" mb={5}>
               CATÁLOGOS
             </Heading>
-            <Link href="/">
-              <Flex
-                align="center"
-                color="gray.200"
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-                mb={2}
-              >
-                <Icon as={TiArrowRightOutline} />
-                <Text ml={2} fontSize="sm">
-                  Onde Estamos
-                </Text>
-              </Flex>
-            </Link>
+            {JSON.stringify(prod) === "[]"
+              ? ""
+              : prod.map((p) => (
+                  <Link href={`/catalogo/${p._id}`} key={p._id}>
+                    <Flex
+                      align="center"
+                      color="gray.200"
+                      cursor="pointer"
+                      _hover={{ textDecoration: "underline" }}
+                      mb={2}
+                    >
+                      <Icon as={TiArrowRightOutline} />
+                      <Text ml={2} fontSize="sm">
+                        {p.name}
+                      </Text>
+                    </Flex>
+                  </Link>
+                ))}
           </Box>
 
           <Box>
