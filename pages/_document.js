@@ -12,9 +12,8 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
-            href="//db.onlinewebfonts.com/c/fe2027c27b6a24505f548c6fd2e1076d?family=Berlin+Sans+FB"
+            href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
             rel="stylesheet"
-            type="text/css"
           />
         </Head>
         <body>

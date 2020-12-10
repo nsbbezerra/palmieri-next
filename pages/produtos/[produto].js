@@ -323,7 +323,7 @@ export default function Produtos({ prods }) {
                         borderRadius="md"
                         pl={3}
                         pr={3}
-                        onClick={() => handleToogle(cat._id)}
+                        onClick={(e) => handleToogle(e, cat._id)}
                         mb={2}
                         key={cat._id}
                       >
