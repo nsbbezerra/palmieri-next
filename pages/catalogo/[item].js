@@ -27,6 +27,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../../styles/style";
 import HeaderApp from "../../components/Header";
@@ -39,7 +40,7 @@ import config from "../../configs/index";
 export default function ItemCatalogo({ prods }) {
   const { products, urlPhoto, catalogs, tables, modelage } = prods;
 
-  const router = useRouter();
+  const { isFallback, query } = useRouter();
   const [route, setRoute] = useState("");
   const [idRoute, setIdRoute] = useState("");
   const [productName, setProductName] = useState("CAMISETA MASCULINA");
@@ -48,7 +49,7 @@ export default function ItemCatalogo({ prods }) {
   const [information, setInformation] = useState({});
 
   async function setRouteName() {
-    const { item } = router.query;
+    const { item } = query;
     const result = await products.find((obj) => obj._id === item);
     setRoute(result.name.toLowerCase());
     setIdRoute(result._id);
@@ -75,7 +76,7 @@ export default function ItemCatalogo({ prods }) {
 
   useEffect(() => {
     setRouteName();
-  }, [router]);
+  }, [query]);
 
   const CustomTabs = (sz) => {
     return (
@@ -210,6 +211,7 @@ export default function ItemCatalogo({ prods }) {
                         key={t._id}
                         w="48%"
                         mr={"2%"}
+                        key={t._id}
                       >
                         <Image
                           src={`${urlPhoto}/${t.image}`}
@@ -265,108 +267,131 @@ export default function ItemCatalogo({ prods }) {
           />
         </Box>
       </ContainerNonFixed>
-      <Fixed>
-        <Container maxW="xl" mt={10} mb={10}>
-          <Breadcrumb
-            fontSize={"md"}
-            display={["none", "flex", "flex", "flex", "flex"]}
-          >
-            <BreadcrumbItem>
-              <Link href="/" passHref>
-                <BreadcrumbLink>início</BreadcrumbLink>
-              </Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <Link href="/" passHref>
-                <BreadcrumbLink>produtos</BreadcrumbLink>
-              </Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <Link href={`/catalogo/${idRoute}`} passHref>
-                <BreadcrumbLink>catalogo</BreadcrumbLink>
-              </Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem isCurrentPage>
-              <Link href={`/produtos/${encodeURIComponent("1234")}`} passHref>
-                <BreadcrumbLink>{route}</BreadcrumbLink>
-              </Link>
-            </BreadcrumbItem>
-          </Breadcrumb>
+      {isFallback ? (
+        <Flex align="center" justify="center" h="400px" direction="column">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+            fontSize="6xl"
+            mb={10}
+          />
+          <Text>Carregando...</Text>
+        </Flex>
+      ) : (
+        <>
+          <Fixed>
+            <Container maxW="xl" mt={10} mb={10}>
+              <Breadcrumb
+                fontSize={"md"}
+                display={["none", "flex", "flex", "flex", "flex"]}
+              >
+                <BreadcrumbItem>
+                  <Link href="/" passHref>
+                    <BreadcrumbLink>início</BreadcrumbLink>
+                  </Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                  <Link href="/" passHref>
+                    <BreadcrumbLink>produtos</BreadcrumbLink>
+                  </Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                  <Link href={`/catalogo/${idRoute}`} passHref>
+                    <BreadcrumbLink>catalogo</BreadcrumbLink>
+                  </Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem isCurrentPage>
+                  <Link
+                    href={`/produtos/${encodeURIComponent("1234")}`}
+                    passHref
+                  >
+                    <BreadcrumbLink>{route}</BreadcrumbLink>
+                  </Link>
+                </BreadcrumbItem>
+              </Breadcrumb>
 
-          <Box mt={10} textAlign="center" mb={10}>
-            <Heading textAlign="center">{productName}</Heading>
-            <Text>
-              Catálogo de modelos prontos para você personalizar suas camisetas
-              promocionais de acordo com a sua necessidade.
-            </Text>
-          </Box>
+              <Box mt={10} textAlign="center" mb={10}>
+                <Heading textAlign="center">{productName}</Heading>
+                <Text>
+                  Catálogo de modelos prontos para você personalizar suas
+                  camisetas promocionais de acordo com a sua necessidade.
+                </Text>
+              </Box>
 
-          <Grid
-            templateColumns={"repeat(auto-fit, minmax(280px, 280px))"}
-            gap={"30px"}
-            justifyContent="center"
-          >
-            {JSON.stringify(information.cat) === "[]" ||
-            information.cat === undefined ||
-            information.cat === null ||
-            !information.cat.length ? (
-              <Text>Nenhuma Informação</Text>
-            ) : (
-              information.cat.map((ct) => (
-                <Box
-                  borderWidth="1px"
-                  w="280px"
-                  shadow="lg"
-                  borderRadius="lg"
-                  overflow="hidden"
-                >
-                  <Image
-                    src={`${urlPhoto}/${ct.image}`}
-                    alt={ct.imageDescription}
-                    width={889}
-                    height={667}
-                    layout="intrinsic"
-                  />
-                  <Box p={2}>
-                    <Button
-                      size="sm"
-                      variant="solid"
-                      colorScheme="yellow"
-                      mt={2}
-                      p={1}
-                      isFullWidth
-                      leftIcon={<AiOutlineZoomIn />}
-                      onClick={() =>
-                        handleModal(true, `${urlPhoto}/${ct.image}`)
-                      }
+              <Grid
+                templateColumns={"repeat(auto-fit, minmax(280px, 280px))"}
+                gap={"30px"}
+                justifyContent="center"
+              >
+                {JSON.stringify(information.cat) === "[]" ||
+                information.cat === undefined ||
+                information.cat === null ||
+                !information.cat.length ? (
+                  <Text>Nenhuma Informação</Text>
+                ) : (
+                  information.cat.map((ct) => (
+                    <Box
+                      borderWidth="1px"
+                      w="280px"
+                      shadow="lg"
+                      borderRadius="lg"
+                      overflow="hidden"
+                      key={ct._id}
                     >
-                      Ampliar
-                    </Button>
-                  </Box>
-                </Box>
-              ))
-            )}
-          </Grid>
-        </Container>
-      </Fixed>
-      <ContainerNonFixed>
-        <Box>
-          <ContainerApp>
-            <Fixed>
-              <Container maxW="xl" mt={10} mb={10}>
-                <Box borderWidth="1px" borderRadius="lg" p={5}>
-                  <Box display={["none", "none", "block", "block", "block"]}>
-                    {CustomTabs("lg", "md")}
-                  </Box>
-                  <Box display={["block", "block", "none", "none", "none"]}>
-                    {CustomTabs("xs", "xs")}
-                  </Box>
-                </Box>
-              </Container>
-            </Fixed>
-          </ContainerApp>
-        </Box>
-      </ContainerNonFixed>
+                      <Image
+                        src={`${urlPhoto}/${ct.image}`}
+                        alt={ct.imageDescription}
+                        width={889}
+                        height={667}
+                        layout="intrinsic"
+                      />
+                      <Box p={2}>
+                        <Button
+                          size="sm"
+                          variant="solid"
+                          colorScheme="yellow"
+                          mt={2}
+                          p={1}
+                          isFullWidth
+                          leftIcon={<AiOutlineZoomIn />}
+                          onClick={() =>
+                            handleModal(true, `${urlPhoto}/${ct.image}`)
+                          }
+                        >
+                          Ampliar
+                        </Button>
+                      </Box>
+                    </Box>
+                  ))
+                )}
+              </Grid>
+            </Container>
+          </Fixed>
+          <ContainerNonFixed>
+            <Box>
+              <ContainerApp>
+                <Fixed>
+                  <Container maxW="xl" mt={10} mb={10}>
+                    <Box borderWidth="1px" borderRadius="lg" p={5}>
+                      <Box
+                        display={["none", "none", "block", "block", "block"]}
+                      >
+                        {CustomTabs("lg", "md")}
+                      </Box>
+                      <Box display={["block", "block", "none", "none", "none"]}>
+                        {CustomTabs("xs", "xs")}
+                      </Box>
+                    </Box>
+                  </Container>
+                </Fixed>
+              </ContainerApp>
+            </Box>
+          </ContainerNonFixed>
+        </>
+      )}
       <ContainerNonFixed>
         <FooterApp />
       </ContainerNonFixed>
@@ -406,7 +431,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

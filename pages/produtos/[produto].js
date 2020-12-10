@@ -15,7 +15,7 @@ import {
   IconButton,
   Drawer,
   DrawerBody,
-  DrawerFooter,
+  Spinner,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -35,14 +35,13 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
-import ReactPaginate from "react-paginate";
 import config from "../../configs/index";
 
 export default function Produtos({ prods }) {
   const categories = prods.category;
   const products = prods.products;
 
-  const router = useRouter();
+  const { isFallback, query, push } = useRouter();
   const [route, setRoute] = useState("");
   const [idOpen, setIdOpen] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -50,7 +49,7 @@ export default function Produtos({ prods }) {
   const [productShow, setProductShow] = useState([]);
 
   async function setRouteName() {
-    const { produto } = router.query;
+    const { produto } = query;
     const result = await categories.find((obj) => obj._id === produto);
     setRoute(result.name.toLowerCase());
     setIdRouter(produto);
@@ -67,7 +66,7 @@ export default function Produtos({ prods }) {
 
   useEffect(() => {
     setRouteName();
-  }, [router]);
+  }, [query]);
 
   function handleToogle(e, id) {
     e.preventDefault();
@@ -76,7 +75,7 @@ export default function Produtos({ prods }) {
     } else {
       setIdOpen(id);
     }
-    router.push(`/produtos/${id}`);
+    push(`/produtos/${id}`);
   }
 
   return (
@@ -95,199 +94,222 @@ export default function Produtos({ prods }) {
         </Box>
       </ContainerNonFixed>
       <Fixed>
-        <Container maxW="xl" mt={10} mb={10}>
-          <Flex align="center" justify="space-between" pr={10}>
-            <Box>
-              <Breadcrumb
-                fontSize={"md"}
-                display={["none", "flex", "flex", "flex", "flex"]}
-              >
-                <BreadcrumbItem>
-                  <Link href="/" passHref>
-                    <BreadcrumbLink>início</BreadcrumbLink>
-                  </Link>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <Link href="/" passHref>
-                    <BreadcrumbLink>produtos</BreadcrumbLink>
-                  </Link>
-                </BreadcrumbItem>
-                <BreadcrumbItem isCurrentPage>
-                  <Link
-                    href={`/produtos/${encodeURIComponent(idRouter)}`}
-                    passHref
-                  >
-                    <BreadcrumbLink>{route}</BreadcrumbLink>
-                  </Link>
-                </BreadcrumbItem>
-              </Breadcrumb>
-            </Box>
-            <Box display={["block", "block", "block", "none", "none"]}>
-              <IconButton
-                aria-label="Search database"
-                icon={menuOpen === false ? <FaBars /> : <FaTimes />}
-                fontSize={"30px"}
-                onClick={() => setMenuOpen(!menuOpen)}
-              />
-            </Box>
+        {isFallback ? (
+          <Flex align="center" justify="center" h="400px" direction="column">
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+              fontSize="6xl"
+              mb={10}
+            />
+            <Text>Carregando...</Text>
           </Flex>
-
-          <Grid
-            templateColumns={["100%", "100%", "100%", "280px 1fr", "280px 1fr"]}
-            gap={"15px"}
-            mt={10}
-          >
-            <Box display={["none", "none", "none", "block", "block"]}>
-              <Flex
-                bg={"yellow.400"}
-                p={3}
-                align="center"
-                borderRadius={"md"}
-                shadow="md"
-              >
-                <Icon as={FaTags} mr={3} />
-                <Text fontSize={"sm"} fontWeight="700">
-                  TODOS OS PRODUTOS
-                </Text>
+        ) : (
+          <>
+            <Container maxW="xl" mt={10} mb={10}>
+              <Flex align="center" justify="space-between" pr={10}>
+                <Box>
+                  <Breadcrumb
+                    fontSize={"md"}
+                    display={["none", "flex", "flex", "flex", "flex"]}
+                  >
+                    <BreadcrumbItem>
+                      <Link href="/" passHref>
+                        <BreadcrumbLink>início</BreadcrumbLink>
+                      </Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem>
+                      <Link href="/" passHref>
+                        <BreadcrumbLink>produtos</BreadcrumbLink>
+                      </Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem isCurrentPage>
+                      <Link
+                        href={`/produtos/${encodeURIComponent(idRouter)}`}
+                        passHref
+                      >
+                        <BreadcrumbLink>{route}</BreadcrumbLink>
+                      </Link>
+                    </BreadcrumbItem>
+                  </Breadcrumb>
+                </Box>
+                <Box display={["block", "block", "block", "none", "none"]}>
+                  <IconButton
+                    aria-label="Search database"
+                    icon={menuOpen === false ? <FaBars /> : <FaTimes />}
+                    fontSize={"30px"}
+                    onClick={() => setMenuOpen(!menuOpen)}
+                  />
+                </Box>
               </Flex>
 
-              <Box
-                shadow="md"
-                borderWidth={".5px"}
-                borderRadius="md"
-                mt={2}
-                pt={2}
-                pr={2}
-                pl={2}
-              >
-                {categories.map((cat) => (
-                  <>
-                    <Box
-                      as={"button"}
-                      display="flex"
-                      alignItems="center"
-                      w="100%"
-                      fontSize={"sm"}
-                      h="30px"
-                      bg={"yellow.100"}
-                      borderRadius="md"
-                      pl={3}
-                      pr={3}
-                      onClick={(e) => handleToogle(e, cat._id)}
-                      mb={2}
-                      key={cat._id}
-                    >
-                      <Icon as={FaTshirt} mr={2} />
-                      {cat.name}
-                    </Box>
-                    <Collapse
-                      in={idOpen === cat._id ? true : false}
-                      animateOpacity
-                    >
-                      <Box
-                        pt={3}
-                        pl={5}
-                        pr={3}
-                        pb={2}
-                        color="white"
-                        rounded="md"
-                        borderWidth="1px"
-                        mb={2}
-                      >
-                        {products
-                          .filter((obj) => obj.category === cat._id)
-                          .map((pr) => (
-                            <Link href={`/catalogo/${pr._id}`} key={pr._id}>
-                              <Flex
-                                align="center"
-                                color="gray.800"
-                                cursor="pointer"
-                                _hover={{ textDecoration: "underline" }}
-                                mb={2}
-                              >
-                                <Icon as={FaTag} fontSize={`xs`} />
-                                <Text ml={2} fontSize="xs">
-                                  {pr.name}
-                                </Text>
-                              </Flex>
-                            </Link>
-                          ))}
-                      </Box>
-                    </Collapse>
-                  </>
-                ))}
-              </Box>
-            </Box>
-
-            <Box>
               <Grid
-                templateColumns="repeat(auto-fit, minmax(250px, 250px))"
-                gap={"40px"}
-                justifyContent="center"
+                templateColumns={[
+                  "100%",
+                  "100%",
+                  "100%",
+                  "280px 1fr",
+                  "280px 1fr",
+                ]}
+                gap={"15px"}
+                mt={10}
               >
-                {productShow.map((ps) => (
-                  <Box
-                    borderWidth="1px"
-                    w="250px"
-                    shadow="lg"
-                    borderRadius="lg"
-                    overflow="hidden"
-                    h={"max-content"}
-                    key={ps._id}
+                <Box display={["none", "none", "none", "block", "block"]}>
+                  <Flex
+                    bg={"yellow.400"}
+                    p={3}
+                    align="center"
+                    borderRadius={"md"}
+                    shadow="md"
                   >
-                    <Image
-                      src={`${prods.urlPhoto}/${ps.thumbnail}`}
-                      width={250}
-                      height={250}
-                      layout="intrinsic"
-                      alt={ps.imageDescription}
-                    />
+                    <Icon as={FaTags} mr={3} />
+                    <Text fontSize={"sm"} fontWeight="700">
+                      TODOS OS PRODUTOS
+                    </Text>
+                  </Flex>
 
-                    <Flex
-                      p={2}
-                      direction="column"
-                      justify="center"
-                      align="center"
-                      h="110px"
-                    >
-                      <Text
-                        fontSize="sm"
-                        fontWeight="700"
-                        textAlign="center"
-                        noOfLines={2}
-                        isTruncated
-                      >
-                        {ps.name}
-                      </Text>
-                      <Text
-                        fontSize="xs"
-                        textAlign="center"
-                        noOfLines={2}
-                        isTruncated
-                      >
-                        {ps.description}
-                      </Text>
-                      <Link href={`/catalogo/${ps._id}`}>
-                        <Button
-                          variant="solid"
-                          colorScheme="yellow"
-                          mt={1}
-                          _focus={{ boxShadow: "none", outline: "none" }}
-                          p={2}
-                          isFullWidth
-                          leftIcon={<FaImages />}
+                  <Box
+                    shadow="md"
+                    borderWidth={".5px"}
+                    borderRadius="md"
+                    mt={2}
+                    pt={2}
+                    pr={2}
+                    pl={2}
+                  >
+                    {categories.map((cat) => (
+                      <>
+                        <Box
+                          as={"button"}
+                          display="flex"
+                          alignItems="center"
+                          w="100%"
                           fontSize={"sm"}
+                          h="30px"
+                          bg={"yellow.100"}
+                          borderRadius="md"
+                          pl={3}
+                          pr={3}
+                          onClick={(e) => handleToogle(e, cat._id)}
+                          mb={2}
+                          key={cat._id}
                         >
-                          Catálogo
-                        </Button>
-                      </Link>
-                    </Flex>
+                          <Icon as={FaTshirt} mr={2} />
+                          {cat.name}
+                        </Box>
+                        <Collapse
+                          in={idOpen === cat._id ? true : false}
+                          animateOpacity
+                        >
+                          <Box
+                            pt={3}
+                            pl={5}
+                            pr={3}
+                            pb={2}
+                            color="white"
+                            rounded="md"
+                            borderWidth="1px"
+                            mb={2}
+                          >
+                            {products
+                              .filter((obj) => obj.category === cat._id)
+                              .map((pr) => (
+                                <Link href={`/catalogo/${pr._id}`} key={pr._id}>
+                                  <Flex
+                                    align="center"
+                                    color="gray.800"
+                                    cursor="pointer"
+                                    _hover={{ textDecoration: "underline" }}
+                                    mb={2}
+                                  >
+                                    <Icon as={FaTag} fontSize={`xs`} />
+                                    <Text ml={2} fontSize="xs">
+                                      {pr.name}
+                                    </Text>
+                                  </Flex>
+                                </Link>
+                              ))}
+                          </Box>
+                        </Collapse>
+                      </>
+                    ))}
                   </Box>
-                ))}
+                </Box>
+
+                <Box>
+                  <Grid
+                    templateColumns="repeat(auto-fit, minmax(250px, 250px))"
+                    gap={"40px"}
+                    justifyContent="center"
+                  >
+                    {productShow.map((ps) => (
+                      <Box
+                        borderWidth="1px"
+                        w="250px"
+                        shadow="lg"
+                        borderRadius="lg"
+                        overflow="hidden"
+                        h={"max-content"}
+                        key={ps._id}
+                      >
+                        <Image
+                          src={`${prods.urlPhoto}/${ps.thumbnail}`}
+                          width={250}
+                          height={250}
+                          layout="intrinsic"
+                          alt={ps.imageDescription}
+                        />
+
+                        <Flex
+                          p={2}
+                          direction="column"
+                          justify="center"
+                          align="center"
+                          h="110px"
+                        >
+                          <Text
+                            fontSize="sm"
+                            fontWeight="700"
+                            textAlign="center"
+                            noOfLines={2}
+                            isTruncated
+                          >
+                            {ps.name}
+                          </Text>
+                          <Text
+                            fontSize="xs"
+                            textAlign="center"
+                            noOfLines={2}
+                            isTruncated
+                          >
+                            {ps.description}
+                          </Text>
+                          <Link href={`/catalogo/${ps._id}`}>
+                            <Button
+                              variant="solid"
+                              colorScheme="yellow"
+                              mt={1}
+                              _focus={{ boxShadow: "none", outline: "none" }}
+                              p={2}
+                              isFullWidth
+                              leftIcon={<FaImages />}
+                              fontSize={"sm"}
+                            >
+                              Catálogo
+                            </Button>
+                          </Link>
+                        </Flex>
+                      </Box>
+                    ))}
+                  </Grid>
+                </Box>
               </Grid>
-            </Box>
-          </Grid>
-        </Container>
+            </Container>
+          </>
+        )}
       </Fixed>
       <ContainerNonFixed>
         <FooterApp />
@@ -385,7 +407,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
