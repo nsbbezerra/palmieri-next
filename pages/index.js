@@ -13,7 +13,7 @@ import {
   Button,
   Container,
   Center,
-  Image as ChakraImage,
+  Img as ChakraImage,
   IconButton,
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -29,14 +29,17 @@ import Carousel from "react-multi-carousel";
 import Link from "next/link";
 
 import { useFooter } from "../context/footer";
+import { useHeader } from "../context/header";
 
 const isBrowser = typeof window !== "undefined";
 
 export default function Home({ info }) {
   const { footerItens, setFooterItens } = useFooter();
+  const { headerItens, setHeaderItens } = useHeader();
 
   useEffect(() => {
     setFooterItens(info.productsFooter);
+    setHeaderItens(info.category);
   }, [info]);
 
   const route = useRouter();
@@ -44,25 +47,28 @@ export default function Home({ info }) {
     e.preventDefault();
     route.push(href);
   }
+
   const ButtonGroup = ({ next, previous }) => {
     return (
-      <Flex position="absolute" justify="center" mt={3} w="88vw">
+      <Flex position="absolute" justify="center" mt={3} w="91vw" mt={5}>
         <IconButton
           onClick={() => previous()}
           icon={<RiArrowLeftSLine />}
           fontSize={"35px"}
           mr={5}
+          variant="link"
         />
         <IconButton
           onClick={() => next()}
           icon={<RiArrowRightSLine />}
           fontSize={"35px"}
+          variant="link"
         />
       </Flex>
     );
   };
 
-  const { category, products, productsFooter, comments, urlPhoto } = info;
+  const { category, products, comments, urlPhoto } = info;
 
   return (
     <ContainerApp>
@@ -517,5 +523,6 @@ export const getStaticProps = async () => {
     props: {
       info: data,
     },
+    revalidate: 30,
   };
 };

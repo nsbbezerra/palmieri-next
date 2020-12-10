@@ -8,12 +8,17 @@ import {
   IconButton,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   Icon,
   Heading,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Collapse,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import {
@@ -24,14 +29,21 @@ import {
   FaQuestionCircle,
   FaBars,
   FaTimes,
+  FaTshirt,
 } from "react-icons/fa";
 import { FixedPanel } from "../styles/style";
 import Link from "next/link";
+import { BiChevronDown } from "react-icons/bi";
+
+import { useHeader } from "../context/header";
 
 export default function HeaderApp() {
   const [display, setDisplay] = useState(0);
   const [position, setPosition] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { headerItens, setHeaderItens } = useHeader();
 
   useEffect(() => {
     if (position < 132) {
@@ -48,11 +60,6 @@ export default function HeaderApp() {
   }, []);
 
   const router = useRouter();
-
-  function goTo(e, href) {
-    e.preventDefault();
-    router.push(href);
-  }
 
   return (
     <>
@@ -77,6 +84,9 @@ export default function HeaderApp() {
         <meta httpEquiv="content-language" content="pt-br" />
         <meta content="Global" name="distribution" />
       </Head>
+
+      {/** MENU NORMAL */}
+
       <Flex
         bg="gray.100"
         h="50px"
@@ -133,8 +143,9 @@ export default function HeaderApp() {
               Início
             </Button>
           </Link>
-          <Link href={"/produtos/todos"}>
-            <Button
+          <Menu colorScheme="yellow">
+            <MenuButton
+              as={Button}
               size="lg"
               borderRadius="sm"
               variant="ghost"
@@ -147,10 +158,34 @@ export default function HeaderApp() {
               color="gray.900"
               _hover={{ bg: "yellow.400" }}
               fontSize="sm"
+              onClick={() => {}}
+              rightIcon={<BiChevronDown />}
             >
               Produtos
-            </Button>
-          </Link>
+            </MenuButton>
+            <MenuList shadow="lg" bg="yellow.400" borderColor="transparent">
+              {headerItens.map((item) => (
+                <Link key={item._id} href={`/produtos/${item._id}`}>
+                  <MenuItem
+                    icon={<FaTshirt />}
+                    _hover={{
+                      bg: "gray.900",
+                      outline: "none",
+                      color: "gray.100",
+                    }}
+                    _focus={{
+                      bg: "gray.900",
+                      outline: "none",
+                      color: "gray.100",
+                    }}
+                  >
+                    {item.name}
+                  </MenuItem>
+                </Link>
+              ))}
+            </MenuList>
+          </Menu>
+
           <Link href="/quemsomos">
             <Button
               size="lg"
@@ -207,6 +242,9 @@ export default function HeaderApp() {
           </Link>
         </Flex>
       </Flex>
+
+      {/** MENU FIXO */}
+
       <FixedPanel display={display}>
         <Flex h="50px" pr={10} pl={10} justify={"space-between"}>
           <Flex h="50px" align="center">
@@ -261,8 +299,9 @@ export default function HeaderApp() {
                 Início
               </Button>
             </Link>
-            <Link href="/">
-              <Button
+            <Menu>
+              <MenuButton
+                as={Button}
                 size="lg"
                 borderRadius="sm"
                 variant="ghost"
@@ -275,11 +314,33 @@ export default function HeaderApp() {
                 color="gray.900"
                 _hover={{ bg: "yellow.400" }}
                 fontSize="sm"
-                onClick={(e) => goTo(e, "/produtos/todos")}
+                onClick={() => {}}
+                rightIcon={<BiChevronDown />}
               >
                 Produtos
-              </Button>
-            </Link>
+              </MenuButton>
+              <MenuList shadow="lg" bg={"yellow.400"} borderColor="transparent">
+                {headerItens.map((item) => (
+                  <Link key={item._id} href={`/produtos/${item._id}`}>
+                    <MenuItem
+                      icon={<FaTshirt />}
+                      _hover={{
+                        bg: "gray.900",
+                        outline: "none",
+                        color: "gray.100",
+                      }}
+                      _focus={{
+                        bg: "gray.900",
+                        outline: "none",
+                        color: "gray.100",
+                      }}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  </Link>
+                ))}
+              </MenuList>
+            </Menu>
             <Link href="/quemsomos">
               <Button
                 size="lg"
@@ -338,6 +399,8 @@ export default function HeaderApp() {
         </Flex>
       </FixedPanel>
 
+      {/** MENU MOBILE */}
+
       <Drawer
         isOpen={menuOpen}
         placement="left"
@@ -345,6 +408,7 @@ export default function HeaderApp() {
       >
         <DrawerOverlay>
           <DrawerContent>
+            <DrawerCloseButton />
             <DrawerHeader bg="yellow.300">
               <Flex align="center">
                 <Icon as={FaBars} fontSize={"25px"} mr={5} />
@@ -367,19 +431,43 @@ export default function HeaderApp() {
                   Início
                 </Button>
               </Link>
-              <Link href={"/produtos/todos"}>
-                <Button
-                  size="lg"
-                  borderRadius="lg"
-                  colorScheme="gray"
-                  leftIcon={<FaTags />}
-                  fontSize="sm"
-                  isFullWidth
+
+              <Button
+                size="lg"
+                borderRadius="lg"
+                colorScheme="gray"
+                leftIcon={<FaTags />}
+                rightIcon={<BiChevronDown />}
+                fontSize="sm"
+                isFullWidth
+                mb={3}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                Produtos
+              </Button>
+              <Collapse in={isOpen} animateOpacity>
+                <Box
+                  p="10px"
+                  color="white"
                   mb={3}
+                  borderWidth="1px"
+                  borderRadius="md"
                 >
-                  Produtos
-                </Button>
-              </Link>
+                  {headerItens.map((itm) => (
+                    <Link href={`/produtos/${itm._id}`} key={itm._id}>
+                      <Flex
+                        color="gray.900"
+                        fontSize="xs"
+                        align="center"
+                        mb={2}
+                      >
+                        <Icon as={FaTshirt} mr={2} />
+                        {itm.name}
+                      </Flex>
+                    </Link>
+                  ))}
+                </Box>
+              </Collapse>
               <Link href="/quemsomos">
                 <Button
                   size="lg"
@@ -420,11 +508,6 @@ export default function HeaderApp() {
                 </Button>
               </Link>
             </DrawerBody>
-            <DrawerFooter>
-              <Button colorScheme="yellow" onClick={() => setMenuOpen(false)}>
-                Fechar
-              </Button>
-            </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>

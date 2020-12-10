@@ -24,9 +24,9 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Flex,
 } from "@chakra-ui/react";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../../styles/style";
 import HeaderApp from "../../components/Header";
@@ -34,17 +34,47 @@ import FooterApp from "../../components/Footer";
 import { AiOutlineZoomIn } from "react-icons/ai";
 import { RiFileTextFill } from "react-icons/ri";
 import { FaRuler, FaVideo } from "react-icons/fa";
+import config from "../../configs/index";
 
-export default function ItemCatalogo() {
+export default function ItemCatalogo({ prods }) {
+  const { products, urlPhoto, catalogs, tables, modelage } = prods;
+
   const router = useRouter();
   const [route, setRoute] = useState("");
+  const [idRoute, setIdRoute] = useState("");
   const [productName, setProductName] = useState("CAMISETA MASCULINA");
   const [linkImage, setLinkImage] = useState("/img/camiseta.png");
   const [modal, setModal] = useState(false);
+  const [information, setInformation] = useState({});
+
+  async function setRouteName() {
+    const { item } = router.query;
+    const result = await products.find((obj) => obj._id === item);
+    setRoute(result.name.toLowerCase());
+    setIdRoute(result._id);
+    setProductName(result.name.toUpperCase());
+  }
+
+  async function adminPage(id) {
+    const catalog = await catalogs.filter((obj) => obj.product === id);
+    const table = await tables.filter((obj) => obj.product === id);
+    const model = await modelage.filter((obj) => obj.product === id);
+    const prod = await products.find((obj) => obj._id === id);
+    let inf = {
+      cat: catalog,
+      tab: table,
+      mod: model,
+      pr: prod,
+    };
+    await setInformation(inf);
+  }
 
   useEffect(() => {
-    const { item } = router.query;
-    setRoute(item);
+    adminPage(idRoute);
+  }, [idRoute]);
+
+  useEffect(() => {
+    setRouteName();
   }, [router]);
 
   const CustomTabs = (sz) => {
@@ -67,38 +97,49 @@ export default function ItemCatalogo() {
 
         <TabPanels mt={2}>
           <TabPanel>
-            <Text textAlign="justify" style={{ textIndent: "30px" }} mb={2}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Text>
-            <Text textAlign="justify" style={{ textIndent: "30px" }} mb={2}>
-              Vestibulum lorem sed risus ultricies tristique nulla aliquet enim.
-              Id diam vel quam elementum pulvinar. Semper quis lectus nulla at
-              volutpat diam ut venenatis tellus. Amet mattis vulputate enim
-              nulla aliquet porttitor. Fermentum dui faucibus in ornare quam
-              viverra orci sagittis eu. Adipiscing elit duis tristique
-              sollicitudin nibh sit amet commodo nulla. Sit amet facilisis magna
-              etiam tempor orci. Laoreet sit amet cursus sit amet dictum sit.
-              Neque viverra justo nec ultrices dui sapien eget mi. Id ornare
-              arcu odio ut sem nulla pharetra diam sit. Porttitor massa id neque
-              aliquam vestibulum morbi blandit cursus. Elementum sagittis vitae
-              et leo.
-            </Text>
-            <Box borderWidth="1px" borderRadius="lg" overflow="hidden" mt={10}>
-              <Image
-                src={
-                  "https://w3uniformes.com.br/wp-content/uploads/2019/11/estrategias-para-ter-uniformes-frescos.png"
-                }
-                width={1000}
-                height={650}
-                layout="responsive"
-              />
-            </Box>
+            {JSON.stringify(information.pr) === "{}" ||
+            information.pr === undefined ||
+            information.pr === null ||
+            !information.pr ? (
+              <Text>Nenhuma Informação</Text>
+            ) : (
+              <>
+                {information.pr.slug.split(".").map((sl) => (
+                  <Text
+                    textAlign="justify"
+                    style={{ textIndent: "30px" }}
+                    mb={2}
+                    key={sl}
+                  >
+                    {sl}.
+                  </Text>
+                ))}
+
+                {information.pr.imageDescMiddle === "" ||
+                information.pr.imageDescMiddle === null ||
+                information.pr.imageDescMiddle === undefined ||
+                !information.pr.imageDescMiddle ? (
+                  ""
+                ) : (
+                  <>
+                    <Box
+                      borderWidth="1px"
+                      borderRadius="lg"
+                      overflow="hidden"
+                      mt={10}
+                    >
+                      <Image
+                        src={`${urlPhoto}/${information.pr.imageDescMiddle}`}
+                        alt={information.pr.imageDescription}
+                        width={1000}
+                        height={650}
+                        layout="responsive"
+                      />
+                    </Box>
+                  </>
+                )}
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <Center mb={4}>
@@ -111,111 +152,103 @@ export default function ItemCatalogo() {
               justifyContent="center"
               gap={"40px"}
             >
-              <Box w={"180px"}>
-                <Box
-                  w={"180px"}
-                  h={"180px"}
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  overflow="hidden"
-                >
-                  <Image
-                    src="https://i.pinimg.com/originals/aa/c0/ba/aac0ba411412fc8948ec4d20e0d75328.jpg"
-                    width={180}
-                    height={180}
-                  />
-                </Box>
-                <Center>
-                  <Text fontSize="xs" fontWeight="700" textAlign="center">
-                    OMBRO
-                  </Text>
-                </Center>
-                <Center>
-                  <Text fontSize="xs" textAlign="center">
-                    Meçamdjkalskdjlaskjd asdalskdjlaskjdas
-                  </Text>
-                </Center>
-              </Box>
-              <Box w={"180px"}>
-                <Box
-                  w={"180px"}
-                  h={"180px"}
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  overflow="hidden"
-                >
-                  <Image
-                    src="https://i.pinimg.com/originals/aa/c0/ba/aac0ba411412fc8948ec4d20e0d75328.jpg"
-                    width={180}
-                    height={180}
-                  />
-                </Box>
-                <Center>
-                  <Text fontSize="xs" fontWeight="700" textAlign="center">
-                    OMBRO
-                  </Text>
-                </Center>
-                <Center>
-                  <Text fontSize="xs" textAlign="center">
-                    Meçamdjkalskdjlaskjd asdalskdjlaskjdas
-                  </Text>
-                </Center>
-              </Box>
-              <Box w={"180px"}>
-                <Box
-                  w={"180px"}
-                  h={"180px"}
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  overflow="hidden"
-                >
-                  <Image
-                    src="https://i.pinimg.com/originals/aa/c0/ba/aac0ba411412fc8948ec4d20e0d75328.jpg"
-                    width={180}
-                    height={180}
-                  />
-                </Box>
-                <Center>
-                  <Text fontSize="xs" fontWeight="700" textAlign="center">
-                    OMBRO
-                  </Text>
-                </Center>
-                <Center>
-                  <Text fontSize="xs" textAlign="center">
-                    Meçamdjkalskdjlaskjd asdalskdjlaskjdas
-                  </Text>
-                </Center>
-              </Box>
+              {JSON.stringify(information.mod) === "[]" ||
+              !information.mod ||
+              information.mod === undefined ||
+              information.mod === null ||
+              !information.mod.length ? (
+                <Text>Nenhuma Informação</Text>
+              ) : (
+                information.mod.map((md) => (
+                  <Box w={"180px"} key={md._id}>
+                    <Box
+                      w={"180px"}
+                      h={"180px"}
+                      borderWidth="1px"
+                      borderRadius="lg"
+                      overflow="hidden"
+                    >
+                      <Image
+                        src={`${urlPhoto}/${md.image}`}
+                        alt={md.title}
+                        width={180}
+                        height={180}
+                      />
+                    </Box>
+                    <Center>
+                      <Text fontSize="xs" fontWeight="700" textAlign="center">
+                        {md.title}
+                      </Text>
+                    </Center>
+                    <Center>
+                      <Text fontSize="xs" textAlign="center">
+                        {md.desc}
+                      </Text>
+                    </Center>
+                  </Box>
+                ))
+              )}
             </Grid>
-            <Center mb={5} mt={10}>
-              <Text fontSize="xl" fontWeight="700">
-                TABELA DE MEDIDAS
-              </Text>
-            </Center>
-            <Container>
-              <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
-                <Image
-                  src="https://i.pinimg.com/originals/dd/a5/19/dda519deca28de5075e27d42d1dbbe0c.jpg"
-                  width={1200}
-                  height={630}
-                  layout="responsive"
-                />
-              </Box>
-            </Container>
+            {JSON.stringify(information.tab) === "[]" ||
+            information.tab === undefined ||
+            information.tab === null ||
+            !information.tab.length ? (
+              <Text>Nenhuma Informação</Text>
+            ) : (
+              <>
+                <Center mb={5} mt={10}>
+                  <Text fontSize="xl" fontWeight="700">
+                    TABELA DE MEDIDAS
+                  </Text>
+                </Center>
+                <Container>
+                  <Flex align="center" justifyContent="space-between">
+                    {information.tab.map((t) => (
+                      <Box
+                        borderRadius="lg"
+                        overflow="hidden"
+                        key={t._id}
+                        w="48%"
+                        mr={"2%"}
+                      >
+                        <Image
+                          src={`${urlPhoto}/${t.image}`}
+                          width={842}
+                          height={667}
+                          layout="responsive"
+                        />
+                      </Box>
+                    ))}
+                  </Flex>
+                </Container>
+              </>
+            )}
           </TabPanel>
           <TabPanel>
-            <AspectRatio maxW="560px" ratio={4 / 3}>
-              <iframe
-                title="naruto"
-                src="https://www.youtube.com/embed/QhBnZ6NPOY0"
-                allowFullScreen
-              />
-            </AspectRatio>
+            {JSON.stringify(information.pr) === "{}" ||
+            information.pr === undefined ||
+            information.pr === null ||
+            !information.pr.length ? (
+              <Text>Nenhuma Informação</Text>
+            ) : (
+              <AspectRatio maxW="560px" ratio={4 / 3}>
+                <iframe
+                  title="naruto"
+                  src={information.pr.video}
+                  allowFullScreen
+                />
+              </AspectRatio>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>
     );
   };
+
+  function handleModal(act, href) {
+    setModal(act);
+    setLinkImage(href);
+  }
 
   return (
     <ContainerApp>
@@ -244,12 +277,12 @@ export default function ItemCatalogo() {
               </Link>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <Link href="/produtos/todos" passHref>
+              <Link href="/" passHref>
                 <BreadcrumbLink>produtos</BreadcrumbLink>
               </Link>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <Link href={`/catalogo/${route}`} passHref>
+              <Link href={`/catalogo/${idRoute}`} passHref>
                 <BreadcrumbLink>catalogo</BreadcrumbLink>
               </Link>
             </BreadcrumbItem>
@@ -269,173 +302,50 @@ export default function ItemCatalogo() {
           </Box>
 
           <Grid
-            templateColumns={"repeat(auto-fit, minmax(250px, 250px))"}
+            templateColumns={"repeat(auto-fit, minmax(280px, 280px))"}
             gap={"30px"}
             justifyContent="center"
           >
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-              <Box p={2}>
-                <Button
-                  size="sm"
-                  variant="solid"
-                  colorScheme="yellow"
-                  mt={2}
-                  p={1}
-                  isFullWidth
-                  leftIcon={<AiOutlineZoomIn />}
-                  onClick={() => setModal(true)}
+            {JSON.stringify(information.cat) === "[]" ||
+            information.cat === undefined ||
+            information.cat === null ||
+            !information.cat.length ? (
+              <Text>Nenhuma Informação</Text>
+            ) : (
+              information.cat.map((ct) => (
+                <Box
+                  borderWidth="1px"
+                  w="280px"
+                  shadow="lg"
+                  borderRadius="lg"
+                  overflow="hidden"
                 >
-                  Ampliar
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-              <Box p={2}>
-                <Button
-                  size="sm"
-                  variant="solid"
-                  colorScheme="yellow"
-                  mt={2}
-                  p={1}
-                  isFullWidth
-                  leftIcon={<AiOutlineZoomIn />}
-                >
-                  Ampliar
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-              <Box p={2}>
-                <Button
-                  size="sm"
-                  variant="solid"
-                  colorScheme="yellow"
-                  mt={2}
-                  p={1}
-                  isFullWidth
-                  leftIcon={<AiOutlineZoomIn />}
-                >
-                  Ampliar
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-              <Box p={2}>
-                <Button
-                  size="sm"
-                  variant="solid"
-                  colorScheme="yellow"
-                  mt={2}
-                  p={1}
-                  isFullWidth
-                  leftIcon={<AiOutlineZoomIn />}
-                >
-                  Ampliar
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-              <Box p={2}>
-                <Button
-                  size="sm"
-                  variant="solid"
-                  colorScheme="yellow"
-                  mt={2}
-                  p={1}
-                  isFullWidth
-                  leftIcon={<AiOutlineZoomIn />}
-                >
-                  Ampliar
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              borderWidth="1px"
-              w="250px"
-              shadow="lg"
-              borderRadius="lg"
-              overflow="hidden"
-            >
-              <Image
-                src="/img/camiseta.png"
-                width={250}
-                height={250}
-                layout="intrinsic"
-              />
-              <Box p={2}>
-                <Button
-                  size="sm"
-                  variant="solid"
-                  colorScheme="yellow"
-                  mt={2}
-                  p={1}
-                  isFullWidth
-                  leftIcon={<AiOutlineZoomIn />}
-                >
-                  Ampliar
-                </Button>
-              </Box>
-            </Box>
+                  <Image
+                    src={`${urlPhoto}/${ct.image}`}
+                    alt={ct.imageDescription}
+                    width={889}
+                    height={667}
+                    layout="intrinsic"
+                  />
+                  <Box p={2}>
+                    <Button
+                      size="sm"
+                      variant="solid"
+                      colorScheme="yellow"
+                      mt={2}
+                      p={1}
+                      isFullWidth
+                      leftIcon={<AiOutlineZoomIn />}
+                      onClick={() =>
+                        handleModal(true, `${urlPhoto}/${ct.image}`)
+                      }
+                    >
+                      Ampliar
+                    </Button>
+                  </Box>
+                </Box>
+              ))
+            )}
           </Grid>
         </Container>
       </Fixed>
@@ -475,8 +385,8 @@ export default function ItemCatalogo() {
             <Box>
               <Image
                 src={linkImage}
-                width={250}
-                height={250}
+                width={889}
+                height={667}
                 layout="responsive"
               />
             </Box>
@@ -486,3 +396,27 @@ export default function ItemCatalogo() {
     </ContainerApp>
   );
 }
+
+export const getStaticPaths = async () => {
+  const response = await fetch(`${config.general.urlApi}/findAllProducts`);
+  const data = await response.json();
+  const paths = await data.products.map((product) => {
+    return { params: { item: product._id } };
+  });
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async () => {
+  const response = await fetch(`${config.general.urlApi}/catalogPage`);
+  const data = await response.json();
+  return {
+    props: {
+      prods: data,
+    },
+    revalidate: 30,
+  };
+};

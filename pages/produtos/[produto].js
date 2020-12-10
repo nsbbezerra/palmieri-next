@@ -20,6 +20,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   Heading,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../../styles/style";
 import HeaderApp from "../../components/Header";
@@ -35,24 +36,47 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
+import config from "../../configs/index";
 
-export default function Produtos() {
+export default function Produtos({ prods }) {
+  const categories = prods.category;
+  const products = prods.products;
+
   const router = useRouter();
   const [route, setRoute] = useState("");
   const [idOpen, setIdOpen] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [idRouter, setIdRouter] = useState("");
+  const [productShow, setProductShow] = useState([]);
+
+  async function setRouteName() {
+    const { produto } = router.query;
+    const result = await categories.find((obj) => obj._id === produto);
+    setRoute(result.name.toLowerCase());
+    setIdRouter(produto);
+  }
+
+  async function handleProductsToShow(id) {
+    const res = await products.filter((obj) => obj.category === id);
+    await setProductShow(res);
+  }
 
   useEffect(() => {
-    const { produto } = router.query;
-    setRoute(produto);
+    handleProductsToShow(idRouter);
+  }, [idRouter]);
+
+  useEffect(() => {
+    setRouteName();
   }, [router]);
 
-  function handleToogle(id) {
+  function handleToogle(e, id) {
+    e.preventDefault();
     if (idOpen === id) {
       setIdOpen("");
     } else {
       setIdOpen(id);
     }
+    router.push(`/produtos/${id}`);
   }
 
   return (
@@ -84,13 +108,13 @@ export default function Produtos() {
                   </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <Link href="/produtos/todos" passHref>
+                  <Link href="/" passHref>
                     <BreadcrumbLink>produtos</BreadcrumbLink>
                   </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem isCurrentPage>
                   <Link
-                    href={`/produtos/${encodeURIComponent("1234")}`}
+                    href={`/produtos/${encodeURIComponent(idRouter)}`}
                     passHref
                   >
                     <BreadcrumbLink>{route}</BreadcrumbLink>
@@ -136,50 +160,62 @@ export default function Produtos() {
                 pr={2}
                 pl={2}
               >
-                <Box
-                  as={"button"}
-                  display="flex"
-                  alignItems="center"
-                  w="100%"
-                  fontSize={"sm"}
-                  h="30px"
-                  bg={"yellow.100"}
-                  borderRadius="md"
-                  pl={3}
-                  pr={3}
-                  onClick={() => handleToogle("1")}
-                  mb={2}
-                >
-                  <Icon as={FaTshirt} mr={2} />
-                  UNIFORMES DE ACADEMIA
-                </Box>
-                <Collapse in={idOpen === "1" ? true : false} animateOpacity>
-                  <Box
-                    pt={3}
-                    pl={5}
-                    pr={3}
-                    pb={2}
-                    color="white"
-                    rounded="md"
-                    borderWidth="1px"
-                    mb={2}
-                  >
-                    <Link href="/">
-                      <Flex
-                        align="center"
-                        color="gray.800"
-                        cursor="pointer"
-                        _hover={{ textDecoration: "underline" }}
+                {categories.map((cat) => (
+                  <>
+                    <Box
+                      as={"button"}
+                      display="flex"
+                      alignItems="center"
+                      w="100%"
+                      fontSize={"sm"}
+                      h="30px"
+                      bg={"yellow.100"}
+                      borderRadius="md"
+                      pl={3}
+                      pr={3}
+                      onClick={(e) => handleToogle(e, cat._id)}
+                      mb={2}
+                      key={cat._id}
+                    >
+                      <Icon as={FaTshirt} mr={2} />
+                      {cat.name}
+                    </Box>
+                    <Collapse
+                      in={idOpen === cat._id ? true : false}
+                      animateOpacity
+                    >
+                      <Box
+                        pt={3}
+                        pl={5}
+                        pr={3}
+                        pb={2}
+                        color="white"
+                        rounded="md"
+                        borderWidth="1px"
                         mb={2}
                       >
-                        <Icon as={FaTag} fontSize={`xs`} />
-                        <Text ml={2} fontSize="xs">
-                          Academia Manga Curta Femenina
-                        </Text>
-                      </Flex>
-                    </Link>
-                  </Box>
-                </Collapse>
+                        {products
+                          .filter((obj) => obj.category === cat._id)
+                          .map((pr) => (
+                            <Link href={`/catalogo/${pr._id}`} key={pr._id}>
+                              <Flex
+                                align="center"
+                                color="gray.800"
+                                cursor="pointer"
+                                _hover={{ textDecoration: "underline" }}
+                                mb={2}
+                              >
+                                <Icon as={FaTag} fontSize={`xs`} />
+                                <Text ml={2} fontSize="xs">
+                                  {pr.name}
+                                </Text>
+                              </Flex>
+                            </Link>
+                          ))}
+                      </Box>
+                    </Collapse>
+                  </>
+                ))}
               </Box>
             </Box>
 
@@ -189,184 +225,66 @@ export default function Produtos() {
                 gap={"40px"}
                 justifyContent="center"
               >
-                <Box
-                  borderWidth="1px"
-                  w="250px"
-                  shadow="lg"
-                  borderRadius="lg"
-                  overflow="hidden"
-                  h={"max-content"}
-                >
-                  <Image
-                    src="/img/camiseta.png"
-                    width={250}
-                    height={250}
-                    layout="intrinsic"
-                  />
-
-                  <Flex
-                    p={2}
-                    direction="column"
-                    justify="center"
-                    align="center"
-                    h="110px"
+                {productShow.map((ps) => (
+                  <Box
+                    borderWidth="1px"
+                    w="250px"
+                    shadow="lg"
+                    borderRadius="lg"
+                    overflow="hidden"
+                    h={"max-content"}
+                    key={ps._id}
                   >
-                    <Text fontSize="md" fontWeight="700" textAlign="center">
-                      Uniformes de Academia
-                    </Text>
-                    <Text fontSize="xs" textAlign="center">
-                      Descrição descrição descrição descrição descrição
-                      descrição
-                    </Text>
-                    <Link href="/catalogo/1">
-                      <Button
-                        variant="solid"
-                        colorScheme="yellow"
-                        mt={1}
-                        _focus={{ boxShadow: "none", outline: "none" }}
-                        p={2}
-                        isFullWidth
-                        leftIcon={<FaImages />}
-                        fontSize={"sm"}
-                      >
-                        Catálogo
-                      </Button>
-                    </Link>
-                  </Flex>
-                </Box>
-                <Box
-                  borderWidth="1px"
-                  w="250px"
-                  shadow="lg"
-                  borderRadius="lg"
-                  overflow="hidden"
-                  h={"max-content"}
-                >
-                  <Image
-                    src="/img/camiseta.png"
-                    width={250}
-                    height={250}
-                    layout="intrinsic"
-                  />
+                    <Image
+                      src={`${prods.urlPhoto}/${ps.thumbnail}`}
+                      width={250}
+                      height={250}
+                      layout="intrinsic"
+                      alt={ps.imageDescription}
+                    />
 
-                  <Flex
-                    p={2}
-                    direction="column"
-                    justify="center"
-                    align="center"
-                    h="110px"
-                  >
-                    <Text fontSize="md" fontWeight="700" textAlign="center">
-                      Uniformes de Academia
-                    </Text>
-                    <Text fontSize="xs" textAlign="center">
-                      Descrição descrição descrição descrição descrição
-                      descrição
-                    </Text>
-                    <Link href="/catalogo/2">
-                      <Button
-                        variant="solid"
-                        colorScheme="yellow"
-                        mt={1}
-                        _focus={{ boxShadow: "none", outline: "none" }}
-                        p={2}
-                        isFullWidth
-                        leftIcon={<FaImages />}
-                        fontSize={"sm"}
+                    <Flex
+                      p={2}
+                      direction="column"
+                      justify="center"
+                      align="center"
+                      h="110px"
+                    >
+                      <Text
+                        fontSize="sm"
+                        fontWeight="700"
+                        textAlign="center"
+                        noOfLines={2}
+                        isTruncated
                       >
-                        Catálogo
-                      </Button>
-                    </Link>
-                  </Flex>
-                </Box>
-                <Box
-                  borderWidth="1px"
-                  w="250px"
-                  shadow="lg"
-                  borderRadius="lg"
-                  overflow="hidden"
-                  h={"max-content"}
-                >
-                  <Image
-                    src="/img/camiseta.png"
-                    width={250}
-                    height={250}
-                    layout="intrinsic"
-                  />
-
-                  <Flex
-                    p={2}
-                    direction="column"
-                    justify="center"
-                    align="center"
-                    h="110px"
-                  >
-                    <Text fontSize="md" fontWeight="700" textAlign="center">
-                      Uniformes de Academia
-                    </Text>
-                    <Text fontSize="xs" textAlign="center">
-                      Descrição descrição descrição descrição descrição
-                      descrição
-                    </Text>
-                    <Link href="/catalogo/3">
-                      <Button
-                        variant="solid"
-                        colorScheme="yellow"
-                        mt={1}
-                        _focus={{ boxShadow: "none", outline: "none" }}
-                        p={2}
-                        isFullWidth
-                        leftIcon={<FaImages />}
-                        fontSize={"sm"}
+                        {ps.name}
+                      </Text>
+                      <Text
+                        fontSize="xs"
+                        textAlign="center"
+                        noOfLines={2}
+                        isTruncated
                       >
-                        Catálogo
-                      </Button>
-                    </Link>
-                  </Flex>
-                </Box>
+                        {ps.description}
+                      </Text>
+                      <Link href={`/catalogo/${ps._id}`}>
+                        <Button
+                          variant="solid"
+                          colorScheme="yellow"
+                          mt={1}
+                          _focus={{ boxShadow: "none", outline: "none" }}
+                          p={2}
+                          isFullWidth
+                          leftIcon={<FaImages />}
+                          fontSize={"sm"}
+                        >
+                          Catálogo
+                        </Button>
+                      </Link>
+                    </Flex>
+                  </Box>
+                ))}
               </Grid>
-              <Box mt={10} className="pag-large-custom">
-                <ReactPaginate
-                  previousLabel={"Anterior"}
-                  nextLabel={"Próxima"}
-                  breakLabel={"..."}
-                  breakClassName={"break-me-custom"}
-                  pageCount={30}
-                  marginPagesDisplayed={1}
-                  pageRangeDisplayed={2}
-                  onPageChange={() => {}}
-                  containerClassName={"pagination-pages-custom"}
-                  activeClassName={"active-custom"}
-                  pageClassName={"pages-custom"}
-                  pageLinkClassName={"page-link-custom"}
-                  previousClassName={"prev-custom"}
-                  nextClassName={"next-custom"}
-                  previousLinkClassName={"prev-link-custom"}
-                  nextLinkClassName={"next-link-custom"}
-                  breakLinkClassName={"break-link-custom"}
-                />
-              </Box>
-              <Box mt={10} className="pag-small-custom">
-                <ReactPaginate
-                  previousLabel={"Anterior"}
-                  nextLabel={"Próxima"}
-                  breakLabel={"..."}
-                  breakClassName={"break-me-custom"}
-                  pageCount={30}
-                  marginPagesDisplayed={1}
-                  pageRangeDisplayed={1}
-                  onPageChange={() => {}}
-                  containerClassName={"pagination-pages-custom"}
-                  activeClassName={"active-custom"}
-                  pageClassName={"pages-custom"}
-                  pageLinkClassName={"page-link-custom"}
-                  previousClassName={"prev-custom"}
-                  nextClassName={"next-custom"}
-                  previousLinkClassName={"prev-link-custom"}
-                  nextLinkClassName={"next-link-custom"}
-                  breakLinkClassName={"break-link-custom"}
-                />
-              </Box>
             </Box>
           </Grid>
         </Container>
@@ -381,6 +299,7 @@ export default function Produtos() {
       >
         <DrawerOverlay>
           <DrawerContent>
+            <DrawerCloseButton />
             <DrawerHeader bg="yellow.300">
               <Flex align="center">
                 <Icon as={FaTags} fontSize={"20px"} mr={5} />
@@ -391,70 +310,92 @@ export default function Produtos() {
             <DrawerBody overflow="auto" p={2}>
               <Box>
                 <Box borderRadius="md" mt={2} pt={2} pr={2} pl={2}>
-                  <Box
-                    as={"button"}
-                    display="flex"
-                    alignItems="center"
-                    w="100%"
-                    fontSize={"sm"}
-                    h="30px"
-                    bg={"yellow.100"}
-                    borderRadius="md"
-                    pl={3}
-                    pr={3}
-                    onClick={() => handleToogle("1")}
-                    mb={2}
-                  >
-                    <Icon as={FaTshirt} mr={2} />
-                    UNIFORMES DE ACADEMIA
-                  </Box>
-                  <Collapse in={idOpen === "1" ? true : false} animateOpacity>
-                    <Box
-                      pt={3}
-                      pl={5}
-                      pr={3}
-                      pb={2}
-                      color="white"
-                      rounded="md"
-                      borderWidth="1px"
-                      mb={2}
-                    >
-                      <Link href="/">
-                        <Flex
-                          align="center"
-                          color="gray.800"
-                          cursor="pointer"
-                          _hover={{ textDecoration: "underline" }}
+                  {categories.map((cat) => (
+                    <>
+                      <Box
+                        as={"button"}
+                        display="flex"
+                        alignItems="center"
+                        w="100%"
+                        fontSize={"sm"}
+                        h="30px"
+                        bg={"yellow.100"}
+                        borderRadius="md"
+                        pl={3}
+                        pr={3}
+                        onClick={() => handleToogle(cat._id)}
+                        mb={2}
+                        key={cat._id}
+                      >
+                        <Icon as={FaTshirt} mr={2} />
+                        {cat.name}
+                      </Box>
+                      <Collapse
+                        in={idOpen === cat._id ? true : false}
+                        animateOpacity
+                      >
+                        <Box
+                          pt={3}
+                          pl={5}
+                          pr={3}
+                          pb={2}
+                          color="white"
+                          rounded="md"
+                          borderWidth="1px"
                           mb={2}
                         >
-                          <Icon as={FaTag} fontSize={`xs`} />
-                          <Text ml={2} fontSize="xs">
-                            Academia Manga Curta Femenina
-                          </Text>
-                        </Flex>
-                      </Link>
-                    </Box>
-                  </Collapse>
+                          {products
+                            .filter((obj) => obj.category === cat._id)
+                            .map((pr) => (
+                              <Link href={`/catalogo/${pr._id}`} key={pr._id}>
+                                <Flex
+                                  align="center"
+                                  color="gray.800"
+                                  cursor="pointer"
+                                  _hover={{ textDecoration: "underline" }}
+                                  mb={2}
+                                >
+                                  <Icon as={FaTag} fontSize={`xs`} />
+                                  <Text ml={2} fontSize="xs">
+                                    {pr.name}
+                                  </Text>
+                                </Flex>
+                              </Link>
+                            ))}
+                        </Box>
+                      </Collapse>
+                    </>
+                  ))}
                 </Box>
               </Box>
             </DrawerBody>
-
-            <DrawerFooter
-              borderTopWidth="1px"
-              borderTopStyle="solid"
-              borderTopColor="gray.200"
-            >
-              <Button
-                variant="solid"
-                colorScheme="yellow"
-                onClick={() => setMenuOpen(false)}
-              >
-                Fechar
-              </Button>
-            </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
     </ContainerApp>
   );
 }
+
+export const getStaticPaths = async () => {
+  const response = await fetch(`${config.general.urlApi}/findCategory`);
+  const data = await response.json();
+  const paths = await data.category.map((category) => {
+    return { params: { produto: category._id } };
+  });
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async () => {
+  const response = await fetch(`${config.general.urlApi}/productPage`);
+  const data = await response.json();
+  return {
+    props: {
+      prods: data,
+    },
+    revalidate: 30,
+  };
+};

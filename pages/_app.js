@@ -4,14 +4,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-multi-carousel/lib/styles.css";
 import "../styles/pagination.css";
 import FooterProvider from "../context/footer";
+import HeaderProvider from "../context/header";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <FooterProvider>
-      <ChakraProvider theme={theme} resetCSS={true}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </FooterProvider>
+    <HeaderProvider>
+      <FooterProvider>
+        <ChakraProvider theme={theme} resetCSS={true}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </FooterProvider>
+    </HeaderProvider>
   );
 }
 
