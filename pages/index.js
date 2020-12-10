@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import HeaderApp from "../components/Header";
 import FooterApp from "../components/Footer";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../styles/style";
@@ -13,7 +13,6 @@ import {
   Button,
   Container,
   Center,
-  Img as ChakraImage,
   IconButton,
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -488,16 +487,24 @@ export default function Home({ info }) {
                         {com.text}
                       </Text>
                     </Flex>
-                    <ChakraImage
-                      borderRadius="full"
-                      boxSize="80px"
-                      src={`${urlPhoto}/${com.avatar}`}
-                      alt="Palmieri Uniformes"
-                      mt={-10}
+                    <Box
+                      w={"83px"}
+                      h="83px"
+                      borderRadius="50%"
                       borderWidth="2px"
                       borderColor="yellow.400"
-                      borderStyle="solid"
-                    />
+                      overflow="hidden"
+                      mt={-10}
+                    >
+                      <Image
+                        src={`${urlPhoto}/${com.avatar}`}
+                        width={83}
+                        height={83}
+                        layout="intrinsic"
+                        alt="Palmieri Uniformes Avatar"
+                      />
+                    </Box>
+
                     <Text color="gray.200" fontSize="sm">
                       {com.author}
                     </Text>

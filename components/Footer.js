@@ -126,8 +126,30 @@ export default function FooterApp() {
     allClear();
   }
 
+  function createLink() {
+    let link = document.createElement("a");
+    link.href = `https://api.whatsapp.com/send?phone=${configs.general.phone}&text=${configs.general.message}`;
+    link.target = "_blank";
+    link.click();
+  }
+
   return (
     <>
+      <IconButton
+        colorScheme="green"
+        aria-label="Call Segun"
+        size="xl"
+        icon={<RiWhatsappLine />}
+        position="fixed"
+        right={5}
+        bottom={10}
+        borderRadius={"50%"}
+        fontSize="5xl"
+        p={3}
+        _active={{ outline: "none" }}
+        onClick={() => createLink()}
+      />
+
       <Box bg={"gray.100"} pt={10} pb={10}>
         <Container maxW="lg">
           <Box textAlign="center">
