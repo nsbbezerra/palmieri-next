@@ -1,3 +1,4 @@
+import { useContext, useEffect } from "react";
 import HeaderApp from "../components/Header";
 import FooterApp from "../components/Footer";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../styles/style";
@@ -27,9 +28,17 @@ import config from "../configs/index";
 import Carousel from "react-multi-carousel";
 import Link from "next/link";
 
+import { useFooter } from "../context/footer";
+
 const isBrowser = typeof window !== "undefined";
 
 export default function Home({ info }) {
+  const { footerItens, setFooterItens } = useFooter();
+
+  useEffect(() => {
+    setFooterItens(info.productsFooter);
+  }, [info]);
+
   const route = useRouter();
   function goTo(e, href) {
     e.preventDefault();
@@ -495,7 +504,7 @@ export default function Home({ info }) {
       </ContainerNonFixed>
 
       <ContainerNonFixed>
-        <FooterApp prod={productsFooter} />
+        <FooterApp />
       </ContainerNonFixed>
     </ContainerApp>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   Box,
   Grid,
@@ -35,7 +35,9 @@ import { RiSendPlaneFill, RiWhatsappLine } from "react-icons/ri";
 import axios from "axios";
 import configs from "../configs/index";
 
-export default function FooterApp({ prod }) {
+import { useFooter } from "../context/footer";
+
+export default function FooterApp() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -48,6 +50,8 @@ export default function FooterApp({ prod }) {
   const [sendLoading, setSendLoading] = useState(false);
   const [disable, setDisable] = useState(false);
   const [complete, setComplete] = useState(false);
+
+  const { footerItens, setFooterItens } = useFooter();
 
   function allClear() {
     setName("");
@@ -308,9 +312,9 @@ export default function FooterApp({ prod }) {
             <Heading color="yellow.400" size="md" mb={5}>
               CATÁLOGOS
             </Heading>
-            {JSON.stringify(prod) === "[]"
+            {JSON.stringify(footerItens) === "[]"
               ? ""
-              : prod.map((p) => (
+              : footerItens.map((p) => (
                   <Link href={`/catalogo/${p._id}`} key={p._id}>
                     <Flex
                       align="center"
