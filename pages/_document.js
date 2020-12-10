@@ -12,8 +12,9 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
-            href="http://fonts.cdnfonts.com/css/berlin-sans-fb-demi"
+            href="//db.onlinewebfonts.com/c/fe2027c27b6a24505f548c6fd2e1076d?family=Berlin+Sans+FB"
             rel="stylesheet"
+            type="text/css"
           />
         </Head>
         <body>
