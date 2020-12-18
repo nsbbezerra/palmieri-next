@@ -28,6 +28,7 @@ import {
   ModalCloseButton,
   Flex,
   Spinner,
+  IconButton,
 } from "@chakra-ui/react";
 import { ContainerApp, Fixed, ContainerNonFixed } from "../../styles/style";
 import HeaderApp from "../../components/Header";
@@ -38,9 +39,35 @@ import { FaRuler, FaVideo } from "react-icons/fa";
 import config from "../../configs/index";
 
 export default function ItemCatalogo({ prods }) {
-  const { products, urlPhoto, catalogs, tables, modelage } = prods;
+  const { query, isFallback } = useRouter();
 
-  const { query } = useRouter();
+  if (isFallback) {
+    return (
+      <Box w="100vw" h="100vh" p={3}>
+        <Grid templateRows={"40px 1fr"} h="100%">
+          <Flex>
+            <Box w="40px" h="40px" mr={"15px"}>
+              <Image
+                src="/img/icone.png"
+                width={40}
+                height={40}
+                quality={100}
+              />
+            </Box>
+            <Box w="100px" h="40px">
+              <Image src="/img/logo.png" width={95} height={35} quality={100} />
+            </Box>
+          </Flex>
+          <Flex h={"100%"} align="center" justify="center" direction="column">
+            <Spinner size="xl" color="yellow.400" mb={10} />
+            <Text fontSize={"xl"}>Buscando Informações...</Text>
+          </Flex>
+        </Grid>
+      </Box>
+    );
+  }
+
+  const { products, urlPhoto, catalogs, tables, modelage } = prods;
   const [route, setRoute] = useState("");
   const [idRoute, setIdRoute] = useState("");
   const [productName, setProductName] = useState("CAMISETA MASCULINA");
@@ -411,7 +438,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
