@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../styles/theme";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/animation.css";
 import FooterProvider from "../context/footer";
 import HeaderProvider from "../context/header";
 

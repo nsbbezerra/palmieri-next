@@ -142,13 +142,15 @@ export default function FooterApp() {
         icon={<RiWhatsappLine />}
         position="fixed"
         right={5}
-        bottom={10}
+        bottom={7}
         borderRadius={"50%"}
-        fontSize="5xl"
+        fontSize="4xl"
         p={3}
         _active={{ outline: "none" }}
         onClick={() => createLink()}
         zIndex={9000}
+        shadow="xl"
+        className="ball"
       />
 
       <Box bg={"gray.100"} pt={10} pb={10}>

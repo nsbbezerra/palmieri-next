@@ -139,7 +139,7 @@ export default function Produtos({ prods }) {
                 </BreadcrumbItem>
                 <BreadcrumbItem isCurrentPage>
                   <Link
-                    href={`/produtos/${encodeURIComponent(idRouter)}`}
+                    href={`/produtos/${encodeURIComponent(query.produto)}`}
                     passHref
                   >
                     <BreadcrumbLink>{route}</BreadcrumbLink>
