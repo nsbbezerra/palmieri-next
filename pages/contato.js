@@ -68,18 +68,7 @@ export default function Contato() {
               (63) 98501-4015
             </Text>
           </Flex>
-          <Flex align="center" mb={2}>
-            <Icon as={FaWhatsapp} fontSize="2xl" />
-            <Text ml={2} fontSize="xl">
-              (63) 98484-2266
-            </Text>
-          </Flex>
-          <Flex align="center" mb={2}>
-            <Icon as={FaWhatsapp} fontSize="2xl" />
-            <Text ml={2} fontSize="xl">
-              (63) 98489-2058
-            </Text>
-          </Flex>
+
           <Flex align="center" mb={2}>
             <Icon as={AiOutlineMail} fontSize="2xl" />
             <Text ml={2} fontSize="xl">

@@ -410,7 +410,10 @@ export default function FooterApp() {
             <Heading color="yellow.400" size="md" mb={5}>
               ATENDIMENTO
             </Heading>
-            <Link href={`tel:+5563985014015`} passHref>
+            <Link
+              href={`https://api.whatsapp.com/send?phone=5563985014015&text=${configs.general.message}`}
+              passHref
+            >
               <a target="_blank">
                 <Flex
                   align="center"
@@ -426,44 +429,7 @@ export default function FooterApp() {
                 </Flex>
               </a>
             </Link>
-            <Link
-              href={`https://api.whatsapp.com/send?phone=5563984852266&text=${configs.general.message}`}
-              passHref
-            >
-              <a target="_blank">
-                <Flex
-                  align="center"
-                  color="gray.200"
-                  cursor="pointer"
-                  _hover={{ textDecoration: "underline" }}
-                  mb={2}
-                >
-                  <Icon as={FaWhatsapp} />
-                  <Text ml={2} fontSize="sm">
-                    (63) 98485-2266
-                  </Text>
-                </Flex>
-              </a>
-            </Link>
-            <Link
-              href={`https://api.whatsapp.com/send?phone=5563984892058&text=${configs.general.message}`}
-              passHref
-            >
-              <a target="_blank">
-                <Flex
-                  align="center"
-                  color="gray.200"
-                  cursor="pointer"
-                  _hover={{ textDecoration: "underline" }}
-                  mb={2}
-                >
-                  <Icon as={FaWhatsapp} />
-                  <Text ml={2} fontSize="sm">
-                    (63) 98489-2058
-                  </Text>
-                </Flex>
-              </a>
-            </Link>
+
             <Link href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=Palmieriuniformes@gmail.com">
               <a target="_blank">
                 <Flex
