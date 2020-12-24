@@ -3,8 +3,8 @@ import UncontrolledCarousel from "reactstrap/lib/UncontrolledCarousel";
 export default function Banner() {
   const items = [
     {
-      src: "/img/banner-one-web.png",
-      altText: "Slide 1",
+      src: "/img/banner-three-web.png",
+      altText: "Slide 3",
       key: "1",
       caption: "",
     },
@@ -15,15 +15,9 @@ export default function Banner() {
       caption: "",
     },
     {
-      src: "/img/banner-three-web.png",
-      altText: "Slide 3",
-      key: "3",
-      caption: "",
-    },
-    {
       src: "/img/banner-four-web.png",
       altText: "Slide 3",
-      key: "4",
+      key: "3",
       caption: "",
     },
   ];

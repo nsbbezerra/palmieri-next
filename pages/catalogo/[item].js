@@ -39,7 +39,7 @@ import { FaRuler, FaVideo } from "react-icons/fa";
 import config from "../../configs/index";
 
 export default function ItemCatalogo({ prods }) {
-  const { query, isFallback } = useRouter();
+  const { query, isFallback, back } = useRouter();
 
   if (isFallback) {
     return (
@@ -139,7 +139,7 @@ export default function ItemCatalogo({ prods }) {
                     mb={2}
                     key={sl}
                   >
-                    {sl}.
+                    {sl}
                   </Text>
                 ))}
 
@@ -150,12 +150,7 @@ export default function ItemCatalogo({ prods }) {
                   ""
                 ) : (
                   <>
-                    <Box
-                      borderWidth="1px"
-                      borderRadius="lg"
-                      overflow="hidden"
-                      mt={10}
-                    >
+                    <Box borderRadius="lg" overflow="hidden" mt={10}>
                       <Image
                         src={`${urlPhoto}/${information.pr.imageDescMiddle}`}
                         alt={information.pr.imageDescription}
@@ -178,7 +173,7 @@ export default function ItemCatalogo({ prods }) {
             <Grid
               templateColumns="repeat(auto-fit, minmax(180px, 180px))"
               justifyContent="center"
-              gap={"40px"}
+              gap={"50px"}
             >
               {JSON.stringify(information.mod) === "[]" ||
               !information.mod ||
@@ -192,7 +187,6 @@ export default function ItemCatalogo({ prods }) {
                     <Box
                       w={"180px"}
                       h={"180px"}
-                      borderWidth="1px"
                       borderRadius="lg"
                       overflow="hidden"
                     >
@@ -307,9 +301,7 @@ export default function ItemCatalogo({ prods }) {
               </Link>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <Link href="/" passHref>
-                <BreadcrumbLink>produtos</BreadcrumbLink>
-              </Link>
+              <BreadcrumbLink onClick={() => back()}>produtos</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
               <Link href={`/catalogo/${idRoute}`} passHref>

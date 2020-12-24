@@ -148,6 +148,7 @@ export default function FooterApp() {
         p={3}
         _active={{ outline: "none" }}
         onClick={() => createLink()}
+        zIndex={9000}
       />
 
       <Box bg={"gray.100"} pt={10} pb={10}>
@@ -266,7 +267,7 @@ export default function FooterApp() {
             <Heading color="yellow.400" size="md" mb={5}>
               INSTITUCIONAL
             </Heading>
-            <Link href="/">
+            <Link href="/contato">
               <Flex
                 align="center"
                 color="gray.200"
@@ -281,7 +282,7 @@ export default function FooterApp() {
                 </Text>
               </Flex>
             </Link>
-            <Link href="/">
+            <Link href="/comofunciona">
               <Flex
                 align="center"
                 color="gray.200"
@@ -386,21 +387,8 @@ export default function FooterApp() {
                 </Text>
               </Flex>
             </Link>
-            <Link href="/">
-              <Flex
-                align="center"
-                color="gray.200"
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-                mb={2}
-              >
-                <Icon as={TiArrowRightOutline} />
-                <Text ml={2} fontSize="sm">
-                  Tabela de Tamanhos
-                </Text>
-              </Flex>
-            </Link>
-            <Link href="/">
+
+            <Link href="/comofunciona">
               <Flex
                 align="center"
                 color="gray.200"
@@ -420,62 +408,76 @@ export default function FooterApp() {
             <Heading color="yellow.400" size="md" mb={5}>
               ATENDIMENTO
             </Heading>
-            <Link href="/">
-              <Flex
-                align="center"
-                color="gray.200"
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-                mb={2}
-              >
-                <Icon as={FaWhatsapp} />
-                <Text ml={2} fontSize="sm">
-                  (63) 98501-4015
-                </Text>
-              </Flex>
+            <Link href={`tel:+5563985014015`} passHref>
+              <a target="_blank">
+                <Flex
+                  align="center"
+                  color="gray.200"
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline" }}
+                  mb={2}
+                >
+                  <Icon as={FaWhatsapp} />
+                  <Text ml={2} fontSize="sm">
+                    (63) 98501-4015
+                  </Text>
+                </Flex>
+              </a>
             </Link>
-            <Link href="/">
-              <Flex
-                align="center"
-                color="gray.200"
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-                mb={2}
-              >
-                <Icon as={FaWhatsapp} />
-                <Text ml={2} fontSize="sm">
-                  (63) 98485-2266
-                </Text>
-              </Flex>
+            <Link
+              href={`https://api.whatsapp.com/send?phone=5563984852266&text=${configs.general.message}`}
+              passHref
+            >
+              <a target="_blank">
+                <Flex
+                  align="center"
+                  color="gray.200"
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline" }}
+                  mb={2}
+                >
+                  <Icon as={FaWhatsapp} />
+                  <Text ml={2} fontSize="sm">
+                    (63) 98485-2266
+                  </Text>
+                </Flex>
+              </a>
             </Link>
-            <Link href="/">
-              <Flex
-                align="center"
-                color="gray.200"
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-                mb={2}
-              >
-                <Icon as={FaWhatsapp} />
-                <Text ml={2} fontSize="sm">
-                  (63) 98489-2058
-                </Text>
-              </Flex>
+            <Link
+              href={`https://api.whatsapp.com/send?phone=5563984892058&text=${configs.general.message}`}
+              passHref
+            >
+              <a target="_blank">
+                <Flex
+                  align="center"
+                  color="gray.200"
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline" }}
+                  mb={2}
+                >
+                  <Icon as={FaWhatsapp} />
+                  <Text ml={2} fontSize="sm">
+                    (63) 98489-2058
+                  </Text>
+                </Flex>
+              </a>
             </Link>
-            <Link href="/">
-              <Flex
-                align="center"
-                color="gray.200"
-                cursor="pointer"
-                _hover={{ textDecoration: "underline" }}
-                mb={2}
-              >
-                <Icon as={AiOutlineMail} />
+            <Link href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=Palmieriuniformes@gmail.com">
+              <a target="_blank">
+                <Flex
+                  align="center"
+                  color="gray.200"
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline" }}
+                  mb={2}
+                >
+                  <Icon as={AiOutlineMail} />
 
-                <Text ml={2} fontSize="sm">
-                  Palmieriuniformes@gmail.com
-                </Text>
-              </Flex>
+                  <Text ml={2} fontSize="sm">
+                    Palmieriuniformes@gmail.com
+                  </Text>
+                </Flex>
+              </a>
             </Link>
             <Flex align="center" color="gray.200" mt={5}>
               <Icon as={AiOutlineClockCircle} />

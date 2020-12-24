@@ -96,11 +96,20 @@ export default function HeaderApp() {
         mb="-2px"
       >
         <Flex h="50px" align="center">
-          <Box w="40px" h="40px" mr={"15px"}>
-            <Image src="/img/icone.png" width={40} height={40} quality={100} />
+          <Box w="40px" h="40px" mr={"15px"} cursor="pointer">
+            <Link href="/">
+              <Image
+                src="/img/icone.png"
+                width={40}
+                height={40}
+                quality={100}
+              />
+            </Link>
           </Box>
-          <Box w="100px" h="40px">
-            <Image src="/img/logo.png" width={95} height={35} quality={100} />
+          <Box w="100px" h="40px" cursor="pointer">
+            <Link href="/">
+              <Image src="/img/logo.png" width={95} height={35} quality={100} />
+            </Link>
           </Box>
         </Flex>
         <Flex
@@ -248,16 +257,25 @@ export default function HeaderApp() {
       <FixedPanel display={display}>
         <Flex h="50px" pr={10} pl={10} justify={"space-between"}>
           <Flex h="50px" align="center">
-            <Box w="40px" h="40px" mr={"15px"}>
-              <Image
-                src="/img/icone.png"
-                width={40}
-                height={40}
-                quality={100}
-              />
+            <Box w="40px" h="40px" mr={"15px"} cursor="pointer">
+              <Link href="/">
+                <Image
+                  src="/img/icone.png"
+                  width={40}
+                  height={40}
+                  quality={100}
+                />
+              </Link>
             </Box>
-            <Box w="100px" h="40px">
-              <Image src="/img/logo.png" width={95} height={35} quality={100} />
+            <Box w="100px" h="40px" cursor="pointer">
+              <Link href="/">
+                <Image
+                  src="/img/logo.png"
+                  width={95}
+                  height={35}
+                  quality={100}
+                />
+              </Link>
             </Box>
           </Flex>
           <Flex

@@ -17,20 +17,16 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { FaPaintBrush, FaCreditCard, FaTruck, FaCheck } from "react-icons/fa";
-import {
-  RiMoneyDollarCircleFill,
-  RiArrowLeftSLine,
-  RiArrowRightSLine,
-} from "react-icons/ri";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/router";
 import config from "../configs/index";
-import Carousel from "react-multi-carousel";
+import Carousel from "react-elastic-carousel";
 import Link from "next/link";
+import Pixel from "../pixel/index";
 
 import { useFooter } from "../context/footer";
 import { useHeader } from "../context/header";
-
-const isBrowser = typeof window !== "undefined";
 
 export default function Home({ info }) {
   const { footerItens, setFooterItens } = useFooter();
@@ -42,28 +38,25 @@ export default function Home({ info }) {
   }, [info]);
 
   const route = useRouter();
+
   function goTo(e, href) {
     e.preventDefault();
     route.push(href);
   }
 
-  const ButtonGroup = ({ next, previous }) => {
+  const CustomArrow = ({ type, onClick, isEdge }) => {
+    const pointer =
+      type === "PREV" ? <IoIosArrowBack /> : <IoIosArrowForward />;
     return (
-      <Flex position="absolute" justify="center" mt={3} w="91vw" mt={5}>
-        <IconButton
-          onClick={() => previous()}
-          icon={<RiArrowLeftSLine />}
-          fontSize={"35px"}
-          mr={5}
-          variant="link"
-        />
-        <IconButton
-          onClick={() => next()}
-          icon={<RiArrowRightSLine />}
-          fontSize={"35px"}
-          variant="link"
-        />
-      </Flex>
+      <IconButton
+        onClick={onClick}
+        disabled={isEdge}
+        aria-label="Search database"
+        icon={pointer}
+        fontSize="3xl"
+        variant="link"
+        _focus={{ outline: "none" }}
+      />
     );
   };
 
@@ -71,6 +64,7 @@ export default function Home({ info }) {
 
   return (
     <ContainerApp>
+      <Pixel name="FACEBOOK_PIXEL_1" />
       <ContainerNonFixed>
         <HeaderApp />
         <Banner />
@@ -258,17 +252,20 @@ export default function Home({ info }) {
             </Flex>
             <Flex align="center">
               <Text
-                fontSize={["lg", "lg", "lg", "2xl", "2xl"]}
+                fontSize={["lg", "lg", "md", "2xl", "2xl"]}
                 fontWeight="700"
                 color="white"
-                mt={-10}
+                mt={["-50px", "-50px", "-30px", "-50px", "-50px"]}
                 textAlign="justify"
-                mb={[20, 20, 0, 0, 0]}
+                mb={[20, 20, 10, 0, 0]}
                 p={[7, 7, 7, 10, 10]}
               >
-                Trabalhamos para levar qualidade com preço justo aos nossos
+                Somos a palmieri uniformes empresa criada no ano de 2016
+                trabalhamos para levar qualidade com preço justo aos nossos
                 clientes, buscamos sempre entender e aprender com cada pedido e
-                com cada pessoa, assim sempre melhorando nossos processos.
+                com cada um dos nossos clientes. Atendemos todo o território
+                nacional, temos os melhores parceiros que há no mercado têxtil e
+                sempre com novidades e melhorias.
               </Text>
             </Flex>
           </Grid>
@@ -305,7 +302,7 @@ export default function Home({ info }) {
                   textAlign="justify"
                 >
                   <Icon as={FaCheck} color="green.400" mr={5} />
-                  DESEMPENHO DRY FIT PREMIUM
+                  MALHAS DESEMPENHO DRY FIT PREMIUM
                 </Text>
                 <Text
                   fontWeight="700"
@@ -329,18 +326,62 @@ export default function Home({ info }) {
                   textAlign="justify"
                 >
                   <Icon as={FaCheck} color="green.400" mr={5} />
-                  DESEMPENHO QUE AFASTA O SUOR DA PELE
+                  FIBRA QUE É IMUNE A BOLORES E FUNGOS
+                </Text>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
+                  <Icon as={FaCheck} color="green.400" mr={5} />
+                  COSTURA REFORÇADA
+                </Text>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
+                  <Icon as={FaCheck} color="green.400" mr={5} />
+                  RESITENTE A FUROS E RASGOS
+                </Text>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
+                  <Icon as={FaCheck} color="green.400" mr={5} />
+                  NÃO DESBOTA, NÃO DESFIA
+                </Text>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
+                  <Icon as={FaCheck} color="green.400" mr={5} />
+                  MALHA MACIA E TOQUE SUAVE
+                </Text>
+                <Text
+                  fontWeight="700"
+                  fontSize={["sm", "md", "xs", "sm", "lg"]}
+                  textAlign="justify"
+                >
+                  <Icon as={FaCheck} color="green.400" mr={5} />
+                  EQUILÍBRIO TÉRMICO
                 </Text>
               </Box>
-              <Button
-                colorScheme="green"
-                borderRadius="lg"
-                isFullWidth
-                size={"lg"}
-                mt={6}
-              >
-                SOLICITE UM ORÇAMENTO
-              </Button>
+              <Link passHref href="/contato">
+                <a style={{ textDecoration: "none" }}>
+                  <Button
+                    colorScheme="green"
+                    borderRadius="lg"
+                    isFullWidth
+                    size={"lg"}
+                    mt={6}
+                  >
+                    SOLICITE UM ORÇAMENTO
+                  </Button>
+                </a>
+              </Link>
             </Box>
           </Box>
           <Box
@@ -382,21 +423,31 @@ export default function Home({ info }) {
             </Box>
           ) : (
             <Carousel
-              additionalTransfrom={2}
-              arrows={false}
-              autoPlaySpeed={3000}
-              centerMode={false}
-              focusOnSelect={false}
-              infinite
-              itemClass=""
-              keyBoardControl
-              minimumTouchDrag={20}
-              renderButtonGroupOutside={true}
-              renderDotsOutside={true}
-              responsive={config.carousel}
-              ssr
-              deviceType={isBrowser}
-              customButtonGroup={<ButtonGroup />}
+              breakPoints={config.carousel}
+              renderArrow={CustomArrow}
+              renderPagination={({ pages, activePage, onClick }) => {
+                return (
+                  <Flex mt={3}>
+                    {pages.map((page) => {
+                      const isActivePage = activePage === page;
+                      return (
+                        <Box
+                          w="15px"
+                          h="15px"
+                          shadow="sm"
+                          bg={isActivePage ? "yellow.400" : "white"}
+                          key={page}
+                          onClick={() => onClick(page)}
+                          borderRadius="50%"
+                          mr={1}
+                          borderWidth="1px"
+                          borderColor="gray.500"
+                        />
+                      );
+                    })}
+                  </Flex>
+                );
+              }}
             >
               {products.map((prod) => (
                 <Box w={"200px"} h={"250px"} p={1} key={prod._id}>
@@ -449,21 +500,29 @@ export default function Home({ info }) {
               </Box>
             ) : (
               <Carousel
-                additionalTransfrom={1}
-                arrows={false}
-                autoPlaySpeed={3000}
-                centerMode={false}
-                focusOnSelect={false}
-                ssr
-                infinite={false}
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                renderButtonGroupOutside={true}
-                renderDotsOutside={true}
-                responsive={config.depoiments}
-                deviceType={isBrowser}
-                customButtonGroup={<ButtonGroup />}
+                breakPoints={config.depoiments}
+                renderArrow={CustomArrow}
+                renderPagination={({ pages, activePage, onClick }) => {
+                  return (
+                    <Flex mt={3}>
+                      {pages.map((page) => {
+                        const isActivePage = activePage === page;
+                        return (
+                          <Box
+                            w="15px"
+                            h="15px"
+                            shadow="sm"
+                            bg={isActivePage ? "yellow.400" : "gray.500"}
+                            key={page}
+                            onClick={() => onClick(page)}
+                            borderRadius="50%"
+                            mr={1}
+                          />
+                        );
+                      })}
+                    </Flex>
+                  );
+                }}
               >
                 {comments.map((com) => (
                   <Box

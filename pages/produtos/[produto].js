@@ -133,7 +133,7 @@ export default function Produtos({ prods }) {
                   </Link>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <Link href="/" passHref>
+                  <Link href={`/produtos/${query.produto}`} passHref>
                     <BreadcrumbLink>produtos</BreadcrumbLink>
                   </Link>
                 </BreadcrumbItem>

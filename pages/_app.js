@@ -1,8 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "../styles/theme";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "react-multi-carousel/lib/styles.css";
-import "../styles/pagination.css";
 import FooterProvider from "../context/footer";
 import HeaderProvider from "../context/header";
 
