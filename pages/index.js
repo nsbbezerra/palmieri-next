@@ -63,6 +63,23 @@ export default function Home({ info }) {
   const { category, products, comments, urlPhoto } = info;
 
   return (
+    <Flex
+      w="100vw"
+      h="100vh"
+      align="center"
+      justify="center"
+      direction="column"
+    >
+      <Box overflow="hidden" borderRadius="30%" w="250px" h="250px">
+        <Image src="/img/nk.png" width={250} height={250} />
+      </Box>
+      <Text fontSize="3xl" fontWeight="bold" fontStyle="italic" mt={20}>
+        Este site está temporariamente indisponível.
+      </Text>
+    </Flex>
+  );
+
+  return (
     <ContainerApp>
       <Pixel name="FACEBOOK_PIXEL_1" />
       <ContainerNonFixed>
