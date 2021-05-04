@@ -5,7 +5,7 @@ module.exports = {
       "i.pinimg.com",
       "w3uniformes.com.br",
       "localhost",
-      "palmieriuniformes.nodejs7602.kinghost.net",
+      "palmieriuniformes.nodejsng36f02.kinghost.net",
     ],
   },
 };
