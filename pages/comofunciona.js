@@ -95,7 +95,7 @@ export default function ComoFunciona() {
               >
                 Você escolhe um dos nossos produtos oferecido no site, lembrando
                 que a quantidade mínima de camisetas por modelo, cor e estampa
-                são de 10 unidades, portanto não trabalhamos com quantidades
+                são de 20 unidades, portanto não trabalhamos com quantidades
                 menores que essa independente da quantidade total de camisetas.
               </Text>
             </Box>
