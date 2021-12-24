@@ -95,7 +95,7 @@ export default function ComoFunciona() {
               >
                 Você escolhe um dos nossos produtos oferecido no site, lembrando
                 que a quantidade mínima de camisetas por modelo, cor e estampa
-                são de 20 unidades, portanto não trabalhamos com quantidades
+                são de 30 unidades, portanto não trabalhamos com quantidades
                 menores que essa independente da quantidade total de camisetas.
               </Text>
             </Box>
@@ -362,7 +362,7 @@ export default function ComoFunciona() {
                 textAlign="justify"
                 style={{ textIndent: "30px" }}
               >
-                Com a confirmação do pagamento damos o prazo de 15 dias úteis
+                Com a confirmação do pagamento damos o prazo de 22 dias úteis
                 para produção e mais o tempo de envio da transportadora para o
                 pedido estar chegando até você.
               </Text>

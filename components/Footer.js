@@ -151,6 +151,7 @@ export default function FooterApp() {
         zIndex={9000}
         shadow="xl"
         className="ball"
+        d='none'
       />
 
       <Box bg={"gray.100"} pt={10} pb={10}>
