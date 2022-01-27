@@ -126,34 +126,26 @@ export default function FooterApp() {
     allClear();
   }
 
-  function createLink() {
-    let link = document.createElement("a");
-    link.href = `https://api.whatsapp.com/send?phone=${configs.general.phone}&text=${configs.general.message}`;
-    link.target = "_blank";
-    link.click();
-  }
-
   return (
     <>
-      <IconButton
-        colorScheme="green"
-        aria-label="Call Segun"
-        size="xl"
-        icon={<RiWhatsappLine />}
-        position="fixed"
-        right={5}
-        bottom={7}
-        borderRadius={"50%"}
-        fontSize="4xl"
-        p={3}
-        _active={{ outline: "none" }}
-        onClick={() => createLink()}
-        zIndex={9000}
-        shadow="xl"
-        className="ball"
-        d='none'
-      />
-
+      <Link href={"/whatsapp"}>
+        <IconButton
+          colorScheme="green"
+          aria-label="Call Segun"
+          size="xl"
+          icon={<RiWhatsappLine />}
+          position="fixed"
+          right={5}
+          bottom={7}
+          borderRadius={"50%"}
+          fontSize="4xl"
+          p={3}
+          _active={{ outline: "none" }}
+          zIndex={9000}
+          shadow="xl"
+          className="ball"
+        />
+      </Link>
       <Box bg={"gray.100"} pt={10} pb={10}>
         <Container maxW="lg">
           <Box textAlign="center">
@@ -238,11 +230,8 @@ export default function FooterApp() {
                 </Text>
               </Center>
               <Center>
-                <Link
-                  href={`https://api.whatsapp.com/send?phone=${configs.general.phone}&text=${configs.general.message}`}
-                  passHref
-                >
-                  <a target="_blank" style={{ textDecoration: "none" }}>
+                <Link href={"/whatsapp"} passHref>
+                  <a style={{ textDecoration: "none" }}>
                     <Button
                       leftIcon={<RiWhatsappLine />}
                       colorScheme="green"
@@ -411,11 +400,8 @@ export default function FooterApp() {
             <Heading color="yellow.400" size="md" mb={5}>
               ATENDIMENTO
             </Heading>
-            <Link
-              href={`https://api.whatsapp.com/send?phone=5563985014015&text=${configs.general.message}`}
-              passHref
-            >
-              <a target="_blank">
+            <Link href={"/whatsapp"} passHref>
+              <a>
                 <Flex
                   align="center"
                   color="gray.200"

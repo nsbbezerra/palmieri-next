@@ -1,20 +1,66 @@
 .ball {
-  animation: bounce 1s infinite alternate;
-  -webkit-animation: bounce 1s infinite alternate;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
 }
-@keyframes bounce {
-  from {
-    transform: translateY(0px);
+
+@-webkit-keyframes glowing {
+  0% {
+    background-color: #35b084;
+    -webkit-box-shadow: 0 0 3px #35b084;
   }
-  to {
-    transform: translateY(-15px);
+  50% {
+    background-color: #8bc34a;
+    -webkit-box-shadow: 0 0 3px #8bc34a;
+  }
+  100% {
+    background-color: #35b084;
+    -webkit-box-shadow: 0 0 3px #35b084;
   }
 }
-@-webkit-keyframes bounce {
-  from {
-    transform: translateY(0px);
+
+@-moz-keyframes glowing {
+  0% {
+    background-color: #35b084;
+    -moz-box-shadow: 0 0 3px #35b084;
   }
-  to {
-    transform: translateY(-15px);
+  50% {
+    background-color: #8bc34a;
+    -moz-box-shadow: 0 0 3px #8bc34a;
+  }
+  100% {
+    background-color: #35b084;
+    -moz-box-shadow: 0 0 3px #35b084;
+  }
+}
+
+@-o-keyframes glowing {
+  0% {
+    background-color: #35b084;
+    box-shadow: 0 0 3px #35b084;
+  }
+  50% {
+    background-color: #8bc34a;
+    box-shadow: 0 0 3px #8bc34a;
+  }
+  100% {
+    background-color: #35b084;
+    box-shadow: 0 0 3px #35b084;
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #35b084;
+    box-shadow: 0 0 3px #35b084;
+  }
+  50% {
+    background-color: #8bc34a;
+    box-shadow: 0 0 3px #8bc34a;
+  }
+  100% {
+    background-color: #35b084;
+    box-shadow: 0 0 3px #35b084;
   }
 }
